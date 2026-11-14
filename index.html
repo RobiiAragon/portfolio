@@ -140,6 +140,7 @@
       title: 'Experiencia VR — Universidad Xochicalco', type: 'Unity · C# · Realidad Virtual · Prácticas profesionales',
       intro: 'Aplicación interactiva de Realidad Virtual en Unity presentada en la EXPO PERFILES 2025 de Universidad Xochicalco, traduciendo requerimientos institucionales en una experiencia 3D en tiempo real.',
       art: 'rings',
+      link: { url: 'https://www.facebook.com/share/p/1KMn5MTGzY/', label: 'Ver en la Expo' },
       sections: [
         { heading: 'Mi rol', text: [
           'Game & VR Developer en prácticas (2025–2026): diseño de la interacción, programación en C#, optimización para visor y montaje de la experiencia para el público de la expo.',
@@ -152,6 +153,7 @@
       title: 'Yoby / BajaPoke', type: 'SaaS full-stack · Lead Programmer · Freelance · 2026',
       intro: 'MVP SaaS para la cadena de restaurantes BajaPoke que centraliza vacantes por sucursal y la evaluación de candidatos, con IA generativa de por medio.',
       art: 'bars',
+      link: { url: 'https://yoby-five.vercel.app', label: 'Ver app en vivo' },
       sections: [
         { heading: 'Lo que construí', list: [
           'Arquitectura y despliegue del MVP completo como programador líder.',
@@ -224,7 +226,11 @@
 
   function storyBody(p) {
     const hero = p.hero ? `<div class="pair n${p.hero.length}">${p.hero.map(fig).join('')}</div>` : artCover(p);
-    const links = p.repo ? `<div class="links"><a class="btn" href="https://github.com/${ME.user}/${p.repo}" target="_blank" rel="noopener">Ver en GitHub ↗</a></div>` : '';
+    const btns = [
+      p.link ? `<a class="btn" href="${esc(p.link.url)}" target="_blank" rel="noopener">${esc(p.link.label)} ↗</a>` : '',
+      p.repo ? `<a class="btn${p.link ? ' ghost' : ''}" href="https://github.com/${ME.user}/${p.repo}" target="_blank" rel="noopener">Ver en GitHub ↗</a>` : '',
+    ].join('');
+    const links = btns ? `<div class="links">${btns}</div>` : '';
     return `
       <article class="story">
         <header class="story-head">
