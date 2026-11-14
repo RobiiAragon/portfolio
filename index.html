@@ -299,7 +299,7 @@
     if (!inp || e.key !== 'Enter') return;
     const out = inp.closest('.term').querySelector('.term-out');
     const raw = inp.value.trim(); inp.value = '';
-    const [cmd, arg] = raw.split(/\s+/);
+    const [cmd, arg] = raw.toLowerCase().split(/\s+/);
     let res;
     if (!cmd) return;
     if (cmd === 'clear') { out.innerHTML = ''; return; }
