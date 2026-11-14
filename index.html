@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jesús Aragón — Portafolio</title>
+  <meta name="description" content="Jesús Aragón: Software Engineer · Entornos Virtuales y Negocios Digitales. Swift, Unity, IA local y SaaS full-stack.">
+  <meta property="og:title" content="Jesús Aragón — Portafolio">
+  <meta property="og:description" content="Software Engineer · Swift, Unity/VR, IA local y SaaS full-stack. Tijuana, BC.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- MENU BAR -->
+  <header class="menubar">
+    <div class="left">
+      <span class="mark" aria-hidden="true">✦</span>
+      <button class="mb-link strong" data-open="about">Portafolio de Jesús Aragón</button>
+      <button class="mb-link" data-open="contact">Contacto</button>
+      <button class="mb-link" data-open="resume">CV</button>
+      <button class="mb-link" data-open="terminal">Terminal</button>
+    </div>
+    <div class="right">
+      <span class="status" aria-hidden="true">◐ ᯤ ▮▮▮▯</span>
+      <span id="clock"></span>
+    </div>
+  </header>
+
+  <!-- DESKTOP -->
+  <main class="desktop" id="desktop">
+    <canvas id="cloud" aria-hidden="true"></canvas>
+
+    <div class="sticky" id="sticky">
+      <strong>Pendientes:</strong>
+      <ul>
+        <li class="done">Compilar NX Port Studio RC8</li>
+        <li>Escanear algo bonito con Forma</li>
+        <li class="done">Ganarle a mi bot de Clash Royale</li>
+        <li>Graduarme de la UTT (2027) 🎓</li>
+        <li class="done">Tomar agua (y sacarla del iPhone)</li>
+        <li>Construir mi portafolio soñado ✦</li>
+      </ul>
+    </div>
+
+    <div class="welcome">
+      <p>bienvenido a mi</p>
+      <h1>portafolio.</h1>
+      <div class="tag">Entornos Virtuales &amp; Negocios Digitales · Tijuana, BC</div>
+    </div>
+
+    <div id="icons"></div>
+    <div id="windows"></div>
+  </main>
+
+  <!-- DOCK -->
+  <nav class="dock" aria-label="Dock">
+    <button class="dock-app" data-open="about"    title="Sobre mí"><span style="--c:#0fa39a">☺</span></button>
+    <button class="dock-app" data-open="projects" title="Proyectos"><span style="--c:#2563eb">▤</span></button>
+    <button class="dock-app" data-open="repos"    title="Repos de GitHub"><span style="--c:#0b3b60">⌥</span></button>
+    <button class="dock-app" data-open="terminal" title="Terminal"><span style="--c:#16222f" class="sm">&gt;_</span></button>
+    <button class="dock-app" data-open="kind"     title="Stack.txt"><span style="--c:#34d399">❝</span></button>
+    <button class="dock-app" data-open="contact"  title="Contacto"><span style="--c:#38bdf8">✉</span></button>
+    <button class="dock-app" data-open="resume"   title="CV"><span style="--c:#ffffff; color:#0b3b60" class="sm">CV</span></button>
+    <i class="dock-sep"></i>
+    <button class="dock-app open-me" data-open="secret" title="ábreme"><span style="--c:#7dd3c0">♡</span></button>
+  </nav>
+
+  <script>
+  /* =========================================================
+     EDITA TU CONTENIDO AQUÍ
+     - Cada proyecto se vuelve una carpeta en el escritorio.
+     - Las imágenes van en la carpeta "images".
+     - Si un proyecto no tiene capturas, usa `art` (portada generada).
+     ========================================================= */
+  const ME = {
+    name: 'Jesús Aragón',
+    user: 'RobiiAragon',
+    email: 'robiiaragon@gmail.com',
+    x: 'robiiaragon',
+  };
+
+  const PROJECTS = [
+    {
+      id: 'nx', name: 'NX Port Studio', x: 80, y: 12, color: ['#1e3a8a', '#0ea5e9'],
+      title: 'NX Port Studio', type: 'macOS · Python · C · Swift/Xcode · Open source',
+      intro: 'Un espacio de trabajo para macOS que convierte tus propios archivos de juegos de Nintendo Switch en apps nativas de Apple: eliges el juego, preparas recursos y generas una app para Mac o un port para iPhone/iPad firmado con Xcode.',
+      hero: [{ src: 'images/nx/studio-new-port.jpg', caption: 'Nuevo port: eliges entradas y plataforma Apple', wide: true }],
+      quote: 'Probé una carrera completa de Mario Kart 8 Deluxe entre un port nativo en Mac y mi Switch físico por LAN.',
+      repo: 'NX-Port-Studio',
+      sections: [
+        { heading: 'Qué hace', list: [
+          'Progreso de compilación real: base, updates y DLC con errores accionables en 5 idiomas.',
+          'Exportaciones iOS firmadas con verificación de perfil en Xcode.',
+          'Importación de firmware propio (Miis, fuentes, certificados) con validación de versión.',
+          'Controles nativos: Joy-Con, mandos de Xbox, movimiento y vibración.',
+          'Juego online, LAN y local inalámbrico (puente LDN) desde el menú del juego.',
+          'Transferencia de partidas guardadas JKSV en ZIP entre Studio, Mac e iPhone.',
+        ], images: [
+          { src: 'images/nx/studio-firmware.jpg', caption: 'Biblioteca de recursos de sistema versionados' },
+          { src: 'images/nx/studio-local-play.jpg', caption: 'Descubrimiento local de salas' },
+        ] },
+        { heading: 'Bajo el capó', text: [
+          'Construido sobre el motor nxnative, ejecuta código ARM64 reescrito en Apple silicon. Extendí el transporte de sockets, un backend TLS de Apple con verificación de certificados, un puente LDN propio y el mapeo de controles para Mac.',
+        ] },
+      ],
+    },
+    {
+      id: 'forma', name: 'Forma (Fotogrametría)', x: 91, y: 27, color: ['#065f46', '#34d399'], glyph: '⬢',
+      title: 'Forma', type: 'iOS · Swift · Fotogrametría 3D',
+      intro: 'App nativa de iOS para capturar objetos reales y convertirlos en modelos 3D usando fotogrametría directamente desde el iPhone.',
+      art: 'mesh',
+      sections: [
+        { heading: 'La idea', text: [
+          'Llevar la captura 3D a la mano de cualquiera: tomas fotos alrededor de un objeto y la app reconstruye su malla y textura. Es el puente entre el mundo físico y los entornos virtuales que estudio en mi carrera.',
+        ] },
+        { heading: 'Stack', chips: ['Swift', 'SwiftUI', 'RealityKit', 'Object Capture', 'USDZ', 'iOS SDK'] },
+      ],
+    },
+    {
+      id: 'royale', name: 'Royale Local ML', x: 79, y: 41, color: ['#1e40af', '#f59e0b'], glyph: '♛',
+      title: 'Bot autónomo de Clash Royale', type: 'Python · Machine Learning · Visión por computadora',
+      intro: 'Un agente de Machine Learning que juega Clash Royale por sí solo, percibiendo el estado del juego en tiempo real y eligiendo qué carta jugar y dónde.',
+      art: 'grid',
+      sections: [
+        { heading: 'Cómo funciona', list: [
+          'Percepción: lee la pantalla y detecta cartas, elixir y unidades en la arena.',
+          'Decisión: un modelo selecciona la acción (carta + posición) según el estado.',
+          'Acción: ejecuta la jugada y aprende de los resultados, todo de forma local.',
+        ] },
+        { heading: 'Stack', chips: ['Python', 'Machine Learning', 'Visión por computadora', 'Ejecución local'] },
+      ],
+    },
+    {
+      id: 'vr', name: 'VR · Expo Perfiles 2025', x: 90, y: 55, color: ['#0b3b60', '#a78bfa'], glyph: '◉',
+      title: 'Experiencia VR — Universidad Xochicalco', type: 'Unity · C# · Realidad Virtual · Prácticas profesionales',
+      intro: 'Aplicación interactiva de Realidad Virtual en Unity presentada en la EXPO PERFILES 2025 de Universidad Xochicalco, traduciendo requerimientos institucionales en una experiencia 3D en tiempo real.',
+      art: 'rings',
+      sections: [
+        { heading: 'Mi rol', text: [
+          'Game & VR Developer en prácticas (2025–2026): diseño de la interacción, programación en C#, optimización para visor y montaje de la experiencia para el público de la expo.',
+        ] },
+        { heading: 'Stack', chips: ['Unity', 'C#', 'XR Interaction', 'Diseño 3D en tiempo real'] },
+      ],
+    },
+    {
+      id: 'yoby', name: 'Yoby · BajaPoke SaaS', x: 77, y: 68, color: ['#0f766e', '#38bdf8'], glyph: '◆',
+      title: 'Yoby / BajaPoke', type: 'SaaS full-stack · Lead Programmer · Freelance · 2026',
+      intro: 'MVP SaaS para la cadena de restaurantes BajaPoke que centraliza vacantes por sucursal y la evaluación de candidatos, con IA generativa de por medio.',
+      art: 'bars',
+      sections: [
+        { heading: 'Lo que construí', list: [
+          'Arquitectura y despliegue del MVP completo como programador líder.',
+          'Generador de CV asistido por IA para los candidatos.',
+          'Pipeline automático de segmentación de candidatos.',
+        ] },
+        { heading: 'Negocio digital', text: [
+          'El reto no era solo técnico: había que entender el proceso de contratación de una cadena real y convertirlo en un producto que los gerentes de sucursal usaran sin capacitación.',
+        ] },
+        { heading: 'Stack', chips: ['TypeScript', 'React', 'Supabase', 'APIs de IA generativa'] },
+      ],
+    },
+    {
+      id: 'waste', name: 'WasteAndStats', x: 66, y: 76, color: ['#1e3a8a', '#10b981'], glyph: '▦',
+      title: 'WasteAndStats', type: 'iOS · SwiftUI · Supabase · Negocios digitales',
+      intro: 'App para que el dueño de una operación minera supervise a sus gerentes: cada gerente administra un rancho con sus gastos, maquinaria y presupuestos.',
+      art: 'bars',
+      sections: [
+        { heading: 'Funciones', list: [
+          'Roles dueño / gerente, alertas, presupuestos y revisión de gastos.',
+          'Vista "ver como gerente", comparativos y exportación.',
+          'Módulo fiscal SAT / CFDI 4.0 que funciona sin servidor.',
+        ] },
+        { heading: 'Stack', chips: ['Swift', 'SwiftUI', 'Supabase', 'CFDI 4.0'] },
+      ],
+    },
+    {
+      id: 'utils', name: 'Utilidades Swift', x: 88, y: 70, color: ['#0369a1', '#22d3ee'], glyph: '💧',
+      title: 'Pequeñas apps, problemas reales', type: 'iOS · macOS · Swift',
+      intro: 'Utilidades nativas que hice porque las necesitaba yo mismo.',
+      art: 'wave',
+      sections: [
+        { heading: 'Expulsar agua', text: ['App para iPhone que reproduce un tono de baja frecuencia para sacar el agua de la bocina después de mojarse.'] },
+        { heading: 'Free RAM Mac', text: ['Utilidad de barra de menú para macOS que libera memoria y muestra el uso de RAM de un vistazo.'] },
+        { heading: 'Stack', chips: ['Swift', 'SwiftUI', 'AVFoundation', 'AppKit'] },
+      ],
+    },
+    {
+      id: 'ai', name: 'IA local & ComfyUI', x: 67, y: 60, color: ['#312e81', '#14b8a6'], glyph: '✺',
+      title: 'IA local y pipelines generativos', type: 'Ollama · BionicGPT · ComfyUI · CUDA',
+      intro: 'Servidores de inferencia de LLMs locales y flujos generativos por nodos sobre GPU, para prototipar rápido y correr IA sin depender de la nube.',
+      art: 'nodes',
+      sections: [
+        { heading: 'Qué monté', list: [
+          'LLMs locales con Ollama y BionicGPT para chat y RAG privado.',
+          'Workflows de imagen en ComfyUI acelerados con NVIDIA CUDA / Tensor.',
+          'Integración de estos modelos en mis propios proyectos (como el bot de Clash Royale).',
+        ] },
+        { heading: 'Stack', chips: ['Ollama', 'BionicGPT', 'ComfyUI', 'CUDA', 'Python', 'Linux'] },
+      ],
+    },
+  ];
+
+  /* Repos de respaldo (si la API de GitHub no responde) */
+  const REPOS_FALLBACK = [
+    { name: 'NX-Port-Studio', language: 'Python', description: 'Crea ports nativos de Apple desde tu biblioteca de Switch, con firma Xcode, Joy-Con, LAN/LDN y Nextendo.', stargazers_count: 5 },
+    { name: 'ALRM-TECH_JAVA', language: 'Java', description: 'Programa que simula una tienda de PC en línea.' },
+    { name: 'EDU-PAY', language: 'Java', description: 'Sistema de cobros para una escuela particular (preescolar a secundaria).' },
+    { name: 'Image-to-ASCII', language: 'Python', description: 'Convierte imágenes a arte ASCII.' },
+    { name: 'Dinamize', language: 'PHP', description: 'Kiosko digital para plazas comerciales.' },
+    { name: 'Free-Code-Laravel-installer', language: 'C#', description: 'Instalador de Laravel sin usar la línea de comandos.' },
+  ];
+
+  const ICONS = [
+    { id: 'about',    name: 'Sobre mí',        kind: 'folder', x: 10, y: 50 },
+    { id: 'resume',   name: 'CV_Jesus.pdf',    kind: 'doc',    x: 20, y: 63 },
+    { id: 'repos',    name: 'GitHub Repos',    kind: 'gh',     x: 9,  y: 76 },
+    { id: 'kind',     name: 'Stack.txt',       kind: 'txt',    x: 29, y: 78 },
+    ...PROJECTS.map(p => ({ id: p.id, name: p.name, kind: 'folder', x: p.x, y: p.y, color: p.color })),
+    { id: 'secret',   name: 'No mirar',        kind: 'trash',  x: 95, y: 86 },
+  ];
+
+  /* ---------- Helpers ---------- */
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const LANG = { Python:'#3572A5', Java:'#b07219', PHP:'#4F5D95', 'C#':'#178600', Swift:'#F05138', TypeScript:'#3178c6', JavaScript:'#f1e05a', 'C++':'#f34b7d', C:'#555555', HTML:'#e34c26', CSS:'#563d7c', ShaderLab:'#222c37' };
+
+  function fig(im) {
+    return `<figure class="${im.wide ? 'wide' : ''}"><img src="${esc(im.src)}" alt="${esc(im.caption)}" loading="lazy"><figcaption>${esc(im.caption)}</figcaption></figure>`;
+  }
+  function artCover(p) {
+    return `<div class="art" style="--a:${p.color[0]};--b:${p.color[1]}"><canvas data-art="${p.art}"></canvas>
+      <span class="glyph">${p.glyph || '✦'}</span><span class="art-title">${esc(p.title)}</span><span class="art-tag">${esc(p.type.split('·')[0].trim())}</span></div>`;
+  }
+
+  function storyBody(p) {
+    const hero = p.hero ? `<div class="pair n${p.hero.length}">${p.hero.map(fig).join('')}</div>` : artCover(p);
+    const links = p.repo ? `<div class="links"><a class="btn" href="https://github.com/${ME.user}/${p.repo}" target="_blank" rel="noopener">Ver en GitHub ↗</a></div>` : '';
+    return `
+      <article class="story">
+        <header class="story-head">
+          <p class="eyebrow">${esc(p.type)}</p>
+          <h2>${esc(p.title)}</h2>
+          <p class="intro">${esc(p.intro)}</p>
+          ${links}
+        </header>
+        <div class="story-hero">${hero}${p.quote ? `<blockquote>${esc(p.quote)}</blockquote>` : ''}</div>
+        ${p.sections.map(s => `
+          <section class="story-section">
+            <div class="row">
+              <h3>${esc(s.heading)}</h3>
+              <div>
+                ${(s.text || []).map(t => `<p>${esc(t)}</p>`).join('')}
+                ${s.list ? `<ul>${s.list.map(t => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
+                ${s.chips ? `<div class="chips">${s.chips.map(c => `<span class="chip">${esc(c)}</span>`).join('')}</div>` : ''}
+              </div>
+            </div>
+            ${s.images ? `<div class="figs n${s.images.length}">${s.images.map(fig).join('')}</div>` : ''}
+          </section>`).join('')}
+      </article>`;
+  }
+
+  /* ---------- Repos (en vivo desde GitHub) ---------- */
+  function repoCard(r) {
+    const c = LANG[r.language] || '#8aa';
+    return `<a class="repo" href="https://github.com/${ME.user}/${esc(r.name)}" target="_blank" rel="noopener">
+      <b>${esc(r.name)}</b><p>${esc(r.description || 'Sin descripción')}</p>
+      <div class="meta">${r.language ? `<span><i class="dot" style="background:${c}"></i>${esc(r.language)}</span>` : ''}
+      ${r.stargazers_count ? `<span>★ ${r.stargazers_count}</span>` : ''}</div></a>`;
+  }
+  let reposCache = null;
+  async function loadRepos(el) {
+    try {
+      if (!reposCache) {
+        const res = await fetch(`https://api.github.com/users/${ME.user}/repos?per_page=100&sort=pushed`);
+        if (!res.ok) throw 0;
+        reposCache = (await res.json()).filter(r => !r.fork);
+        reposCache.sort((a, b) => b.stargazers_count - a.stargazers_count || new Date(b.pushed_at) - new Date(a.pushed_at));
+      }
+      el.querySelector('.repo-grid').innerHTML = reposCache.map(repoCard).join('');
+      el.querySelector('.count').textContent = `${reposCache.length} repos públicos · en vivo desde GitHub`;
+    } catch {
+      el.querySelector('.count').textContent = 'Selección destacada';
+    }
+  }
+
+  /* ---------- Terminal ---------- */
+  const CMDS = {
+    help: () => 'comandos: <span class="c">whoami</span> · <span class="c">neofetch</span> · <span class="c">ls</span> · <span class="c">open &lt;proyecto&gt;</span> · <span class="c">skills</span> · <span class="c">contact</span> · <span class="c">clear</span>',
+    whoami: () => 'Jesús Aragón — Software Engineer | Full-Stack SaaS, AI/ML, Swift &amp; Unity',
+    ls: () => PROJECTS.map(p => `<span class="c">${p.id}/</span>`).join('  '),
+    skills: () => '<span class="k">lenguajes</span>  TypeScript · Python · Swift · C# · C++ · PHP · Java · SQL<br><span class="k">frameworks</span> React · .NET · iOS SDK · Unity · Laravel · Supabase<br><span class="k">ia</span>         Ollama · BionicGPT · ComfyUI · CUDA<br><span class="k">sistemas</span>   Git · Linux · CMake · Arduino · CCNA',
+    contact: () => `<a href="mailto:${ME.email}">${ME.email}</a> · <a href="https://github.com/${ME.user}" target="_blank">github.com/${ME.user}</a>`,
+    neofetch: () => `<span class="p">${ME.user.toLowerCase()}</span>@<span class="p">macbook</span><br>-----------------<br><span class="k">OS</span>: macOS (Apple silicon)<br><span class="k">Host</span>: UTT · Ing. Entornos Virtuales y Negocios Digitales<br><span class="k">Uptime</span>: estudiando desde 2023 · grad. 2027<br><span class="k">Shell</span>: zsh + Xcode + Unity<br><span class="k">Location</span>: Tijuana, BC 🇲🇽<br><span class="k">Langs</span>: Español (nativo) · English (B1)`,
+  };
+  function termBody() {
+    return `<div class="term"><div class="term-out">
+      <div><span class="p">${ME.user.toLowerCase()}@portfolio</span>:~$ <span class="c">neofetch</span></div><div>${CMDS.neofetch()}</div><br>
+      <div class="muted">escribe <span class="c">help</span> para ver comandos</div></div>
+      <label class="term-in"><span class="p">~$</span><input aria-label="Comando" autocomplete="off" spellcheck="false"></label></div>`;
+  }
+  document.addEventListener('keydown', e => {
+    const inp = e.target.closest?.('.term-in input');
+    if (!inp || e.key !== 'Enter') return;
+    const out = inp.closest('.term').querySelector('.term-out');
+    const raw = inp.value.trim(); inp.value = '';
+    const [cmd, arg] = raw.split(/\s+/);
+    let res;
+    if (!cmd) return;
+    if (cmd === 'clear') { out.innerHTML = ''; return; }
+    if (cmd === 'open' && WINDOWS[arg]) { openWin(arg); res = `abriendo ${esc(arg)}…`; }
+    else res = CMDS[cmd] ? CMDS[cmd]() : `zsh: command not found: ${esc(cmd)}`;
+    out.insertAdjacentHTML('beforeend', `<div><span class="p">~$</span> ${esc(raw)}</div><div>${res}</div>`);
+    out.parentElement.parentElement.scrollTop = 1e6;
+  });
+
+  /* ---------- Ventanas ---------- */
+  const WINDOWS = {
+    about: { title: 'Sobre mí', w: 760, big: true, body: `
+      <div class="about">
+        <div class="about-banner"><canvas data-art="mesh"></canvas>
+          <div class="avatar">J</div>
+          <div class="who"><b>Hola, soy Jesús ✦</b><span>Software Engineer · Tijuana, BC</span></div>
+        </div>
+        <div class="about-text">
+          <p class="eyebrow">Ing. en Entornos Virtuales y Negocios Digitales · UTT · 2023 – 2027</p>
+          <p>Construyo productos SaaS full-stack, flujos de Machine Learning con LLMs locales, apps nativas de iOS en Swift y experiencias en tiempo real con Unity. Me gusta tomar un problema de negocio y convertirlo en software que de verdad se usa.</p>
+          <div class="about-grid">
+            <div class="about-card"><h3>🥽 Entornos virtuales</h3><p>Unity, C# y VR. Fotogrametría para traer objetos reales al mundo 3D.</p></div>
+            <div class="about-card"><h3>📈 Negocios digitales</h3><p>SaaS, automatización y traducción de lo técnico a lo que el negocio necesita.</p></div>
+            <div class="about-card"><h3>🍎 Apple dev</h3><p>Swift, SwiftUI y Xcode: desde utilidades pequeñas hasta ports nativos.</p></div>
+            <div class="about-card"><h3>🧠 IA local</h3><p>Ollama, ComfyUI y CUDA para correr modelos sin depender de la nube.</p></div>
+          </div>
+        </div>
+      </div>` },
+    projects: { title: 'Proyectos', w: 560, body: () => `
+      <div class="finder">${PROJECTS.map(p => `
+        <button class="finder-item" data-open="${p.id}">${folderSVG(p.color)}<span>${esc(p.name)}</span></button>`).join('')}
+      </div>` },
+    repos: { title: `github.com/${ME.user}`, w: 820, body: `
+      <div class="repos">
+        <div class="repos-head"><h2>Mis repos</h2><span class="count muted">cargando…</span></div>
+        <div class="repo-grid">${REPOS_FALLBACK.map(repoCard).join('')}</div>
+        <a class="btn" href="https://github.com/${ME.user}" target="_blank" rel="noopener">Ver perfil completo ↗</a>
+      </div>`, after: loadRepos },
+    terminal: { title: 'zsh — jesus@portfolio', w: 620, cls: 'term', body: termBody, after: el => el.querySelector('input').focus() },
+    kind: { title: 'Stack.txt', w: 560, body: `
+      <div class="txt">
+        <p><b>// lenguajes</b><br>TypeScript, Python, Swift, C#, C++, PHP, JavaScript, Java, SQL, HTML5, CSS3</p>
+        <p><b>// web, móvil y motores</b><br>React, .NET, iOS SDK / Swift, Unity, Laravel, Supabase, REST APIs</p>
+        <p><b>// ia y cómputo</b><br>Machine Learning, LLMs locales (Ollama, BionicGPT), ComfyUI, APIs de IA generativa, NVIDIA CUDA / Tensor</p>
+        <p><b>// sistemas y redes</b><br>Git, GitHub, Linux (Ubuntu, Termux), Windows, CMake, Arduino (C++), CCNA</p>
+        <p><b>// certificaciones</b><br>CCNA Essentials (2024) · NDG Linux Essentials (2022) · C++ Essentials (2021)</p>
+      </div>` },
+    contact: { title: 'Nuevo mensaje', w: 500, body: `
+      <div class="contact">
+        <p><b>Para:</b> Jesús Aragón</p>
+        <p><b>Asunto:</b> Construyamos algo juntos</p>
+        <hr>
+        <p>Abierto a proyectos SaaS, apps iOS, experiencias VR/Unity y colaboraciones con IA.</p>
+        <dl class="contact-list">
+          <div><dt>Email</dt><dd><a href="mailto:${ME.email}">${ME.email}</a></dd></div>
+          <div><dt>GitHub</dt><dd><a href="https://github.com/${ME.user}" target="_blank" rel="noopener">@${ME.user}</a></dd></div>
+          <div><dt>X</dt><dd><a href="https://x.com/${ME.x}" target="_blank" rel="noopener">@${ME.x}</a></dd></div>
+          <div><dt>Ubicación</dt><dd>Tijuana, Baja California, México</dd></div>
+        </dl>
+        <a class="btn" href="mailto:${ME.email}">Escríbeme</a>
+      </div>` },
+    resume: { title: 'CV_Jesus.pdf', w: 760, big: true, body: `
+      <div class="cv">
+        <p class="eyebrow">Software Engineer | Full-Stack SaaS, AI/ML, Swift &amp; Unity</p>
+        <h2>Jesús Aragón</h2>
+        <dl>
+          <div class="cv-row"><dt>Experiencia</dt><dd><b>Lead Programmer — Yoby / BajaPoke</b> · Freelance SaaS · 2026 – hoy<br><span class="muted">MVP full-stack con IA generativa para vacantes y evaluación de candidatos.</span><br><br>
+            <b>Game &amp; VR Developer — Universidad Xochicalco</b> · Prácticas · 2025 – 2026<br><span class="muted">App VR en Unity para la EXPO PERFILES 2025.</span></dd></div>
+          <div class="cv-row"><dt>Educación</dt><dd><b>Universidad Tecnológica de Tijuana</b> · Ingeniería &amp; TSU en TI: Entornos Virtuales y Negocios Digitales · 2023 – 2027<br>
+            <b>CECYTE BC</b> · Técnico en Electrónica · 2017 – 2020</dd></div>
+          <div class="cv-row"><dt>Certificaciones</dt><dd>CCNA Essentials · NDG Linux Essentials · C++ Essentials</dd></div>
+          <div class="cv-row"><dt>Idiomas</dt><dd>Español (nativo) · English (B1)</dd></div>
+          <div class="cv-row"><dt>Fortalezas</dt><dd>Traducir lo técnico al negocio · Adaptabilidad · Manejo de crisis · Resiliencia</dd></div>
+        </dl>
+        <div class="links"><a class="btn" href="resume.pdf" target="_blank" rel="noopener">Abrir PDF</a><a class="btn ghost" href="resume.pdf" download="CV Jesus Aragon.pdf">Descargar</a></div>
+      </div>` },
+    secret: { title: 'No mirar', w: 380, body: `
+      <div class="secret">
+        <p class="big">👀</p>
+        <p>Miraste. Aquí viven mis builds fallidos, 300 errores de Xcode y el bot que perdía contra la IA del tutorial.</p>
+        <p class="muted">Todo buen proyecto empieza aquí ✦</p>
+      </div>` },
+  };
+  PROJECTS.forEach(p => WINDOWS[p.id] = { title: p.name, w: 940, big: true, body: () => storyBody(p) });
+
+  /* ---------- Iconos ---------- */
+  function folderSVG(c = ['#0e7490', '#5ec8d8']) {
+    return `<svg viewBox="0 0 64 52" class="ico"><path d="M2 8a4 4 0 0 1 4-4h18l5 5h29a4 4 0 0 1 4 4v33a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z" fill="${c[0]}"/><path d="M2 16a4 4 0 0 1 4-4h52a4 4 0 0 1 4 4v30a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z" fill="${c[1]}"/></svg>`;
+  }
+  const ART = {
+    folder: c => folderSVG(c),
+    doc: () => `<svg viewBox="0 0 48 60" class="ico doc"><path d="M4 2h28l12 12v42a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#fff" stroke="#c9d6de"/><path d="M32 2v12h12" fill="#eef4f7" stroke="#c9d6de"/><text x="23" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#0b3b60" font-family="Inter">PDF</text></svg>`,
+    txt: () => `<svg viewBox="0 0 48 60" class="ico doc"><path d="M4 2h28l12 12v42a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#fff" stroke="#c9d6de"/><path d="M32 2v12h12" fill="#eef4f7" stroke="#c9d6de"/><g stroke="#9fb6c4" stroke-width="2"><line x1="10" y1="26" x2="38" y2="26"/><line x1="10" y1="33" x2="38" y2="33"/><line x1="10" y1="40" x2="30" y2="40"/></g></svg>`,
+    gh: () => `<svg viewBox="0 0 48 48" class="ico doc" style="height:48px"><rect width="48" height="48" rx="11" fill="#0f1c2b"/><path fill="#fff" d="M24 9a15 15 0 0 0-4.74 29.23c.75.14 1.02-.32 1.02-.72v-2.53c-4.17.9-5.05-2.01-5.05-2.01-.68-1.73-1.67-2.19-1.67-2.19-1.36-.93.1-.91.1-.91 1.5.1 2.3 1.55 2.3 1.55 1.34 2.29 3.51 1.63 4.37 1.25.13-.97.52-1.63.95-2-3.33-.38-6.83-1.67-6.83-7.41 0-1.64.58-2.98 1.55-4.03-.16-.38-.67-1.9.15-3.97 0 0 1.26-.4 4.12 1.54a14.3 14.3 0 0 1 7.5 0c2.86-1.94 4.12-1.54 4.12-1.54.82 2.07.3 3.59.15 3.97.96 1.05 1.54 2.39 1.54 4.03 0 5.76-3.5 7.02-6.84 7.4.54.46 1.02 1.38 1.02 2.78v4.12c0 .4.27.87 1.03.72A15 15 0 0 0 24 9z"/></svg>`,
+    trash: () => `<svg viewBox="0 0 48 60" class="ico doc"><rect x="6" y="10" width="36" height="6" rx="2" fill="#d4e0e6"/><path d="M9 18h30l-3 38H12z" fill="#e8f0f3" stroke="#bfcfd7"/><g stroke="#bfcfd7" stroke-width="1.5"><line x1="18" y1="24" x2="19" y2="50"/><line x1="24" y1="24" x2="24" y2="50"/><line x1="30" y1="24" x2="29" y2="50"/></g></svg>`,
+  };
+
+  const desktop = document.getElementById('desktop');
+  const iconLayer = document.getElementById('icons');
+  const winLayer = document.getElementById('windows');
+  const isMobile = () => matchMedia('(max-width: 700px)').matches;
+
+  ICONS.forEach(ic => {
+    const el = document.createElement('button');
+    el.className = 'icon';
+    el.style.left = ic.x + '%';
+    el.style.top = ic.y + '%';
+    el.innerHTML = ART[ic.kind](ic.color) + `<span class="label">${esc(ic.name)}</span>`;
+    iconLayer.appendChild(el);
+    makeDraggable(el, el, { onClick: () => openWin(ic.id) });
+  });
+
+  let z = 10, offset = 0;
+  const open = {};
+  function openWin(id) {
+    const def = WINDOWS[id];
+    if (!def) return;
+    if (open[id]) { focus(open[id]); return; }
+    const w = document.createElement('section');
+    w.className = 'window' + (def.cls ? ' ' + def.cls : '');
+    w.setAttribute('role', 'dialog');
+    w.setAttribute('aria-label', def.title);
+    const width = Math.min(def.w, desktop.clientWidth - 24);
+    w.style.width = width + 'px';
+    w.style.left = Math.max(12, (desktop.clientWidth - width) / 2 + offset) + 'px';
+    w.style.top = Math.max(12, (def.big ? 16 : 60) + offset) + 'px';
+    if (def.big) w.classList.add('big');
+    offset = (offset + 28) % 140;
+    w.innerHTML = `
+      <div class="titlebar">
+        <span class="lights"><button class="close" aria-label="Cerrar"></button><i></i><button class="zoom" aria-label="Pantalla completa"></button></span>
+        <span class="wtitle">${esc(def.title)}</span>
+      </div>
+      <div class="wbody">${typeof def.body === 'function' ? def.body() : def.body}</div>`;
+    winLayer.appendChild(w);
+    open[id] = w;
+    focus(w);
+    w.querySelectorAll('canvas[data-art]').forEach(drawArt);
+    if (def.after) def.after(w);
+    w.addEventListener('pointerdown', () => focus(w));
+    w.querySelector('.close').addEventListener('click', e => { e.stopPropagation(); w.remove(); delete open[id]; });
+    w.querySelector('.zoom').addEventListener('click', e => { e.stopPropagation(); w.classList.toggle('max'); });
+    w.querySelector('.titlebar').addEventListener('dblclick', () => w.classList.toggle('max'));
+    if (!isMobile()) makeDraggable(w, w.querySelector('.titlebar'), {});
+  }
+  function focus(w) { w.style.zIndex = ++z; }
+
+  document.addEventListener('click', e => {
+    const t = e.target.closest('[data-open]');
+    if (t) openWin(t.dataset.open);
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !lb.classList.contains('on')) {
+      const top = [...winLayer.children].sort((a, b) => b.style.zIndex - a.style.zIndex)[0];
+      if (top) top.querySelector('.close').click();
+    }
+  });
+
+  /* ---------- Lightbox ---------- */
+  const lb = document.createElement('div');
+  lb.className = 'lightbox';
+  lb.innerHTML = `<button class="lb-close" aria-label="Cerrar">×</button><button class="lb-prev" aria-label="Anterior">‹</button><img alt=""><button class="lb-next" aria-label="Siguiente">›</button>`;
+  document.body.appendChild(lb);
+  let lbList = [], lbI = 0;
+  const lbShow = () => { lb.querySelector('img').src = lbList[lbI]; };
+  const lbStep = d => { lbI = (lbI + d + lbList.length) % lbList.length; lbShow(); };
+  lb.querySelector('.lb-close').onclick = () => lb.classList.remove('on');
+  lb.querySelector('.lb-prev').onclick = () => lbStep(-1);
+  lb.querySelector('.lb-next').onclick = () => lbStep(1);
+  lb.addEventListener('click', e => { if (e.target === lb) lb.classList.remove('on'); });
+  document.addEventListener('click', e => {
+    const fi = e.target.closest('.story figure img');
+    if (!fi) return;
+    const all = [...fi.closest('.story').querySelectorAll('figure img')];
+    lbList = all.map(i => i.src); lbI = all.indexOf(fi); lbShow(); lb.classList.add('on');
+  });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('on')) return;
+    if (e.key === 'ArrowLeft') lbStep(-1);
+    if (e.key === 'ArrowRight') lbStep(1);
+    if (e.key === 'Escape') lb.classList.remove('on');
+  });
+
+  /* ---------- Arrastrar (mouse + touch) ---------- */
+  function makeDraggable(el, handle, { onClick }) {
+    let sx, sy, ox, oy, moved = false, dragging = false;
+    handle.addEventListener('pointerdown', e => {
+      if (e.target.closest('.close, .zoom') || el.classList.contains('max') || isMobile()) return;
+      dragging = true; moved = false;
+      sx = e.clientX; sy = e.clientY; ox = el.offsetLeft; oy = el.offsetTop;
+      handle.setPointerCapture(e.pointerId);
+      el.classList.add('dragging');
+    });
+    handle.addEventListener('pointermove', e => {
+      if (!dragging) return;
+      const dx = e.clientX - sx, dy = e.clientY - sy;
+      if (Math.abs(dx) + Math.abs(dy) > 4) moved = true;
+      el.style.left = Math.min(desktop.clientWidth - 40, Math.max(-el.offsetWidth + 80, ox + dx)) + 'px';
+      el.style.top = Math.min(desktop.clientHeight - 40, Math.max(0, oy + dy)) + 'px';
+    });
+    const end = () => { if (!dragging) return; dragging = false; el.classList.remove('dragging'); };
+    handle.addEventListener('pointerup', end);
+    handle.addEventListener('pointercancel', end);
+    if (onClick) handle.addEventListener('click', () => { if (!moved) onClick(); moved = false; });
+  }
+
+  /* ---------- Portadas generadas ---------- */
+  function drawArt(cv) {
+    const r = cv.getBoundingClientRect(), dpr = devicePixelRatio || 1;
+    const W = cv.width = Math.max(1, r.width * dpr), H = cv.height = Math.max(1, r.height * dpr);
+    const g = cv.getContext('2d'); g.strokeStyle = 'rgba(255,255,255,.35)'; g.fillStyle = 'rgba(255,255,255,.55)'; g.lineWidth = dpr;
+    const kind = cv.dataset.art, rnd = (a, b) => a + Math.random() * (b - a);
+    if (kind === 'mesh') {               // malla tipo fotogrametría
+      const pts = Array.from({ length: 70 }, () => [rnd(0, W), rnd(0, H)]);
+      pts.forEach((p, i) => pts.slice(i + 1).forEach(q => { const d = Math.hypot(p[0] - q[0], p[1] - q[1]); if (d < W / 7) { g.globalAlpha = 1 - d / (W / 7); g.beginPath(); g.moveTo(...p); g.lineTo(...q); g.stroke(); } }));
+      g.globalAlpha = 1; pts.forEach(p => { g.beginPath(); g.arc(p[0], p[1], 2 * dpr, 0, 7); g.fill(); });
+    } else if (kind === 'grid') {        // arena en perspectiva
+      for (let i = 0; i <= 18; i++) { g.beginPath(); g.moveTo(W / 2, H * .1); g.lineTo(i * W / 18, H); g.stroke(); }
+      for (let j = 1; j < 10; j++) { const y = H * .1 + (H * .9) * Math.pow(j / 10, 1.6); g.beginPath(); g.moveTo(0, y); g.lineTo(W, y); g.stroke(); }
+    } else if (kind === 'rings') {       // lente VR
+      [.3, .7].forEach(cx => { for (let k = 1; k < 9; k++) { g.beginPath(); g.ellipse(W * cx, H / 2, k * W / 48, k * H / 22, 0, 0, 7); g.stroke(); } });
+    } else if (kind === 'bars') {        // dashboard
+      const n = 22; for (let i = 0; i < n; i++) { const h = rnd(.15, .75) * H; g.globalAlpha = .25 + i / n * .4; g.fillRect(i * W / n + 3 * dpr, H - h, W / n - 6 * dpr, h); }
+    } else if (kind === 'wave') {        // onda de sonido
+      for (let k = 0; k < 5; k++) { g.beginPath(); for (let x = 0; x <= W; x += 4) g.lineTo(x, H / 2 + Math.sin(x / (W / 14) + k) * H * (.08 + k * .05)); g.stroke(); }
+    } else if (kind === 'nodes') {       // grafo de nodos tipo ComfyUI
+      const cols = 5, rows = 3, nodes = [];
+      for (let c = 0; c < cols; c++) for (let rr = 0; rr < rows; rr++) nodes.push([(c + .5) * W / cols, (rr + .5) * H / rows, c]);
+      nodes.forEach(a => nodes.forEach(b => { if (b[2] === a[2] + 1 && Math.random() < .5) { g.beginPath(); g.moveTo(a[0], a[1]); g.bezierCurveTo(a[0] + W / 10, a[1], b[0] - W / 10, b[1], b[0], b[1]); g.stroke(); } }));
+      nodes.forEach(n => { g.fillRect(n[0] - 16 * dpr, n[1] - 9 * dpr, 32 * dpr, 18 * dpr); });
+    }
+  }
+
+  /* ---------- Nube de puntos 3D girando (fondo) ---------- */
+  (() => {
+    const cv = document.getElementById('cloud'), g = cv.getContext('2d');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const P = [];
+    for (let i = 0; i < 420; i++) {          // un "torus" escaneado
+      const u = Math.random() * Math.PI * 2, v = Math.random() * Math.PI * 2, R = 1, r = .38;
+      P.push([(R + r * Math.cos(v)) * Math.cos(u), r * Math.sin(v), (R + r * Math.cos(v)) * Math.sin(u)]);
+    }
+    let a = 0, mx = 0, my = 0;
+    addEventListener('pointermove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
+    function frame() {
+      const dpr = devicePixelRatio || 1, W = cv.width = cv.clientWidth * dpr, H = cv.height = cv.clientHeight * dpr;
+      const cx = W * .5, cy = H * .42, s = Math.min(W, H) * .32;
+      a += .0035; const ay = a + mx * .6, ax = .5 + my * .4;
+      P.forEach(([x, y, zz]) => {
+        let X = x * Math.cos(ay) - zz * Math.sin(ay), Z = x * Math.sin(ay) + zz * Math.cos(ay);
+        let Y = y * Math.cos(ax) - Z * Math.sin(ax); Z = y * Math.sin(ax) + Z * Math.cos(ax);
+        const k = 2.6 / (2.6 + Z), t = (Z + 1.4) / 2.8;
+        g.fillStyle = `rgba(${15 + 40 * t | 0}, ${120 + 60 * (1 - t) | 0}, ${170 - 20 * t | 0}, ${.12 + .28 * (1 - t)})`;
+        g.beginPath(); g.arc(cx + X * s * k, cy + Y * s * k, 1.8 * dpr * k, 0, 7); g.fill();
+      });
+      if (!reduce) requestAnimationFrame(frame);
+    }
+    frame();
+  })();
+
+  /* ---------- Letras de "portafolio." crecen cerca del mouse ---------- */
+  (() => {
+    const h1 = document.querySelector('.welcome h1'), word = h1.textContent;
+    h1.setAttribute('aria-label', word);
+    h1.innerHTML = [...word].map(ch => `<span class="ltr" aria-hidden="true">${ch}</span>`).join('');
+    const letters = [...h1.querySelectorAll('.ltr')];
+    h1.addEventListener('pointermove', e => letters.forEach(l => {
+      const r = l.getBoundingClientRect(), t = Math.max(0, 1 - Math.abs(e.clientX - (r.left + r.width / 2)) / 160), ease = t * t * (3 - 2 * t);
+      l.style.transform = `translateY(${-ease * 6}px) scale(${1 + ease * .45})`;
+      l.style.marginInline = `${ease * .11}em`;
+      l.style.color = ease > .55 ? 'var(--teal)' : '';
+    }));
+    h1.addEventListener('pointerleave', () => letters.forEach(l => { l.style.transform = l.style.color = l.style.marginInline = ''; }));
+  })();
+
+  /* ---------- Estela de vóxeles azul/verde ---------- */
+  (() => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const layer = document.createElement('div'); layer.className = 'sparkle-layer'; document.body.appendChild(layer);
+    const colors = ['#34d399', '#0fa39a', '#38bdf8', '#2563eb', '#a7f3d0'], shapes = ['◆', '◇', '▪', '✦', '•'];
+    let last = 0;
+    document.addEventListener('pointermove', e => {
+      if (e.pointerType !== 'mouse') return;
+      const now = performance.now(); if (now - last < 28 || layer.childElementCount > 60) return; last = now;
+      const s = document.createElement('span'); s.className = 'sparkle';
+      s.textContent = shapes[Math.random() * shapes.length | 0];
+      s.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;font-size:${8 + Math.random() * 11}px;color:${colors[Math.random() * colors.length | 0]};--dx:${(Math.random() - .5) * 40}px;--dy:${12 + Math.random() * 30}px;--r:${(Math.random() - .5) * 180}deg;`;
+      layer.appendChild(s); s.addEventListener('animationend', () => s.remove());
+    });
+  })();
+
+  /* ---------- Reloj + nota ---------- */
+  const clock = document.getElementById('clock');
+  const tick = () => clock.textContent = new Date().toLocaleString('es-MX', isMobile() ? { hour: 'numeric', minute: '2-digit' } : { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+  tick(); setInterval(tick, 15000);
+  makeDraggable(document.getElementById('sticky'), document.getElementById('sticky'), {});
+  </script>
+</body>
+</html>
