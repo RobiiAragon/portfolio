@@ -59,8 +59,9 @@ a { color: var(--teal); }
 }
 .welcome p { font-size: clamp(18px, 2vw, 24px); color: #3b4a5a; }
 .welcome h1 {
-  font-family: var(--serif); font-style: italic; font-weight: 400;
-  font-size: clamp(64px, 11vw, 150px); line-height: .95; letter-spacing: -.01em;
+  font-family: 'Fredoka', var(--sans); font-weight: 600;
+  font-size: clamp(60px, 10.5vw, 144px); line-height: 1; letter-spacing: .005em;
+  color: var(--blue-deep); text-shadow: 0 4px 0 rgba(15,163,154,.18);
   pointer-events: auto; cursor: default; display: inline-block; padding: 34px 10px 0; white-space: nowrap;
 }
 .welcome .tag {
@@ -349,3 +350,5 @@ body.dark .btn { background: var(--teal); }
 body.dark .btn.ghost { color: var(--ink); border-color: #2a4560; background: transparent; }
 body.dark .lightbox { background: rgba(2,8,14,.95); }
 body.dark .open-me::after { background: #132a3d; color: #e2edf5; }
+
+body.dark .welcome h1 { color: #e0f2fe; text-shadow: 0 4px 0 rgba(52,211,153,.25); }
