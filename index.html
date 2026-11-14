@@ -110,19 +110,31 @@
       ],
     },
     {
-      id: 'forma', name: 'Forma (Fotogrametría)', x: 91, y: 27, color: ['#065f46', '#34d399'], glyph: '⬢',
-      title: 'Forma', type: 'iOS · Swift · Fotogrametría 3D',
-      intro: 'App nativa de iOS para capturar objetos reales y convertirlos en modelos 3D usando fotogrametría directamente desde el iPhone.',
-      art: 'mesh',
+      id: 'forma', name: 'Forma (Escaneo 3D)', x: 92, y: 32, color: ['#7c2d12', '#ff5e2e'],
+      title: 'Forma', type: 'iOS · iPadOS · macOS · Swift · Metal · Open source',
+      intro: 'Estudio de escaneo 3D local para iPhone, iPad y Mac. Junta LiDAR, fotogrametría y Gaussian Splatting en una sola app nativa, y todo corre en el dispositivo: sin nube, sin cuenta y sin suscripción.',
+      hero: [{ src: 'images/forma/iphone-home.png', caption: 'Pantalla de inicio de Forma en iPhone', phone: true }],
+      quote: 'Convierte lo que te rodea en modelos 3D que puedes conservar: de la captura a la exportación, todo en tu propio hardware.',
+      link: { url: 'https://github.com/RobiiAragon/Forma/releases/latest', label: 'Descargar' },
+      repo: 'Forma',
       sections: [
-        { heading: 'La idea', text: [
-          'Llevar la captura 3D a la mano de cualquiera: tomas fotos alrededor de un objeto y la app reconstruye su malla y textura. Es el puente entre el mundo físico y los entornos virtuales que estudio en mi carrera.',
+        { heading: 'Funciones', list: [
+          'Espacios: combina la malla LiDAR de ARKit con fotos calibradas para modelos de cuartos con textura.',
+          'Objetos: fotogrametría en el dispositivo con Object Capture de Apple, exporta USDZ con textura.',
+          'Planos: organiza paredes, puertas y ventanas con RoomPlan.',
+          'Gaussian 3D: entrena escenas de Gaussian Splatting con un motor nativo en Metal, con checkpoints para pausar y reanudar.',
+          'Híbrido iPhone ⇄ Mac: manda capturas por red local a Forma Desktop para el procesamiento pesado.',
+          'IA local: mejora de texturas con Core ML (Real-ESRGAN).',
+          'Exporta OBJ, PLY, STL o USDZ, y muestra el progreso en Live Activity / Dynamic Island.',
         ] },
-        { heading: 'Stack', chips: ['Swift', 'iOS SDK', 'Fotogrametría', 'Modelos 3D'] },
+        { heading: 'Arquitectura', text: [
+          'SwiftUI + ARKit + RealityKit/SceneKit + Metal + Core ML, con view models estilo MVVM y servicios que hacen el trabajo pesado. Incluye la app de iOS, Forma Desktop para macOS y la extensión de Live Activity.',
+        ] },
+        { heading: 'Stack', chips: ['Swift', 'SwiftUI', 'ARKit', 'RealityKit', 'Object Capture', 'RoomPlan', 'Metal', 'Core ML', 'Gaussian Splatting'] },
       ],
     },
     {
-      id: 'royale', name: 'Royale Local ML', x: 79, y: 41, color: ['#1e40af', '#f59e0b'], glyph: '♛',
+      id: 'royale', name: 'Royale Local ML', x: 80, y: 32, color: ['#1e40af', '#f59e0b'], glyph: '♛',
       title: 'Bot autónomo de Clash Royale', type: 'Python · Machine Learning · Visión por computadora',
       intro: 'Un agente de Machine Learning que juega Clash Royale por sí solo, percibiendo el estado del juego en tiempo real y eligiendo qué carta jugar y dónde.',
       art: 'grid',
@@ -136,7 +148,7 @@
       ],
     },
     {
-      id: 'vr', name: 'VR · Expo Perfiles 2025', x: 90, y: 55, color: ['#0b3b60', '#a78bfa'], glyph: '◉',
+      id: 'vr', name: 'VR · Expo Perfiles 2025', x: 80, y: 52, color: ['#0b3b60', '#a78bfa'], glyph: '◉',
       title: 'Experiencia VR — Universidad Xochicalco', type: 'Unity · C# · Realidad Virtual · Prácticas profesionales',
       intro: 'Aplicación interactiva de Realidad Virtual en Unity presentada en la EXPO PERFILES 2025 de Universidad Xochicalco, traduciendo requerimientos institucionales en una experiencia 3D en tiempo real.',
       art: 'rings',
@@ -149,7 +161,7 @@
       ],
     },
     {
-      id: 'yoby', name: 'Yoby · BajaPoke SaaS', x: 77, y: 68, color: ['#0f766e', '#38bdf8'], glyph: '◆',
+      id: 'yoby', name: 'Yoby · BajaPoke SaaS', x: 80, y: 72, color: ['#0f766e', '#38bdf8'], glyph: '◆',
       title: 'Yoby / BajaPoke', type: 'SaaS full-stack · Lead Programmer · Freelance · 2026',
       intro: 'MVP SaaS para la cadena de restaurantes BajaPoke que centraliza vacantes por sucursal y la evaluación de candidatos, con IA generativa de por medio.',
       art: 'bars',
@@ -167,18 +179,57 @@
       ],
     },
     {
-      id: 'utils', name: 'Utilidades Swift', x: 88, y: 70, color: ['#0369a1', '#22d3ee'], glyph: '💧',
-      title: 'Pequeñas apps, problemas reales', type: 'iOS · macOS · Swift',
-      intro: 'Utilidades nativas que hice porque las necesitaba yo mismo.',
-      art: 'wave',
+      id: 'utils', name: 'Free RAM Mac', x: 92, y: 52, color: ['#1e3a8a', '#3d6bd6'], glyph: '◔',
+      title: 'Free RAM Mac', type: 'macOS · Swift 6 · Barra de menú · Open source',
+      intro: 'App diminuta para la barra de menú de macOS: muestra el uso de RAM de un vistazo y libera la memoria descartable con un clic. Nativa en Swift, sin ayudantes y sin pedir contraseña.',
+      hero: [{ src: 'images/freeram/popover.png', caption: 'Panel con el detalle de memoria', phone: true }],
+      link: { url: 'https://github.com/RobiiAragon/FreeRAMMac/releases/latest', label: 'Descargar' },
+      repo: 'FreeRAMMac',
       sections: [
-        { heading: 'Expulsar agua', text: ['App para iPhone que saca el agua de las bocinas después de que se moja.'] },
-        { heading: 'Free RAM Mac', text: ['Utilidad de barra de menú para macOS que libera memoria y muestra el uso de RAM de un vistazo.'] },
-        { heading: 'Stack', chips: ['Swift', 'SwiftUI', 'AVFoundation', 'AppKit'] },
+        { heading: 'Qué hace', list: [
+          'Porcentaje de RAM en la barra de menú, actualizado cada dos segundos.',
+          'Un clic le pide a macOS descartar la memoria purgable en segundo plano.',
+          'Binario universal: Apple silicon e Intel, macOS 14+.',
+        ] },
+        { heading: 'Y también…', text: ['Una app para iPhone que saca el agua de las bocinas después de que se moja.'] },
+        { heading: 'Stack', chips: ['Swift 6', 'SwiftUI', 'AppKit', 'macOS'] },
       ],
     },
     {
-      id: 'ai', name: 'IA local & ComfyUI', x: 66, y: 72, color: ['#312e81', '#14b8a6'], glyph: '✺',
+      id: 'nx2', name: 'NX2 Port Studio', x: 92, y: 12, color: ['#7f1d1d', '#ef4444'], glyph: '⬡',
+      title: 'NX2 Port Studio', type: 'Apple silicon · C · Experimental · GPL-3.0',
+      intro: 'Herramientas nativas experimentales para Switch 2 en Apple silicon, construidas a partir de NX Port Studio, nxnative y Eden NX2.',
+      art: 'grid',
+      repo: 'NX2-Port-Studio',
+      sections: [
+        { heading: 'Estado (0.3.0)', list: [
+          'Exportación a app de Mac para builds exactas de Donkey Kong Bananza y Splatoon Raiders.',
+          'Mario Kart World sigue como objetivo planeado.',
+          'Verifica título, update y build IDs de cada módulo antes de habilitar la exportación.',
+        ] },
+        { heading: 'Cómo está armado', text: [
+          'Mantiene separados dos caminos: un motor de exportación a Mac revisado (upstream) y mi backend experimental NVN2. Exportar a iPhone/iPad todavía no está disponible.',
+        ] },
+        { heading: 'Stack', chips: ['C', 'Metal', 'ARM64', 'Python', 'Apple silicon'] },
+      ],
+    },
+    {
+      id: 'btlan', name: 'Bluetooth on LAN', x: 92, y: 72, color: ['#14532d', '#22c55e'], glyph: '🎮',
+      title: 'Bluetooth receptor on LAN', type: 'Android · Kotlin · Windows · .NET 8',
+      intro: 'Convierte cualquier teléfono o tablet Android en un control de baja latencia para tu PC con Windows por red local. Ideal para una PC sin Bluetooth.',
+      art: 'wave',
+      repo: 'Bluetooth-receptor-onLAN',
+      sections: [
+        { heading: 'Cómo funciona', list: [
+          'La app de Android captura un control Bluetooth emparejado y manda solo el estado de los botones por TCP.',
+          'El servidor de Windows crea un control virtual de Xbox 360 (XInput) con ViGEm, así los juegos lo ven como un control normal.',
+          'Descubrimiento automático o IP:puerto manual, keepalive y servicio en segundo plano.',
+        ] },
+        { heading: 'Stack', chips: ['Kotlin', 'Android', 'C#', '.NET 8', 'ViGEmBus', 'TCP'] },
+      ],
+    },
+    {
+      id: 'ai', name: 'IA local & ComfyUI', x: 68, y: 72, color: ['#312e81', '#14b8a6'], glyph: '✺',
       title: 'IA local y pipelines generativos', type: 'Ollama · BionicGPT · ComfyUI · CUDA',
       intro: 'Servidores de inferencia de LLMs locales y flujos generativos por nodos sobre GPU, para prototipar rápido y correr IA sin depender de la nube.',
       art: 'nodes',
@@ -195,12 +246,12 @@
 
   /* Repos de respaldo (si la API de GitHub no responde) */
   const REPOS_FALLBACK = [
-    { name: 'NX-Port-Studio', language: 'Python', description: 'Crea ports nativos de Apple desde tu biblioteca de Switch, con firma Xcode, Joy-Con, LAN/LDN y Nextendo.', stargazers_count: 5 },
-    { name: 'ALRM-TECH_JAVA', language: 'Java', description: 'Programa que simula una tienda de PC en línea.' },
-    { name: 'EDU-PAY', language: 'Java', description: 'Sistema de cobros para una escuela particular (preescolar a secundaria).' },
+    { name: 'Forma', language: 'Swift', description: 'Estudio de escaneo 3D local para iPhone, iPad y Mac: LiDAR, fotogrametría y Gaussian Splatting.' },
+    { name: 'NX-Port-Studio', language: 'Python', description: 'Ports nativos de Apple desde tu biblioteca de Switch, con firma Xcode, Joy-Con y LAN/LDN.', stargazers_count: 5 },
+    { name: 'NX2-Port-Studio', language: 'C', description: 'Herramientas nativas experimentales de Switch 2 para Apple silicon.' },
+    { name: 'FreeRAMMac', language: 'Swift', description: 'App de barra de menú: uso de RAM de un vistazo y purga con un clic.' },
+    { name: 'Bluetooth-receptor-onLAN', language: 'Kotlin', description: 'Tu Android como control de Xbox virtual para Windows por LAN.' },
     { name: 'Image-to-ASCII', language: 'Python', description: 'Convierte imágenes a arte ASCII.' },
-    { name: 'Dinamize', language: 'PHP', description: 'Kiosko digital para plazas comerciales.' },
-    { name: 'Free-Code-Laravel-installer', language: 'C#', description: 'Instalador de Laravel sin usar la línea de comandos.' },
   ];
 
   const ICONS = [
@@ -217,7 +268,7 @@
   const LANG = { Python:'#3572A5', Java:'#b07219', PHP:'#4F5D95', 'C#':'#178600', Swift:'#F05138', TypeScript:'#3178c6', JavaScript:'#f1e05a', 'C++':'#f34b7d', C:'#555555', HTML:'#e34c26', CSS:'#563d7c', ShaderLab:'#222c37' };
 
   function fig(im) {
-    return `<figure class="${im.wide ? 'wide' : ''}"><img src="${esc(im.src)}" alt="${esc(im.caption)}" loading="lazy"><figcaption>${esc(im.caption)}</figcaption></figure>`;
+    return `<figure class="${im.wide ? 'wide' : ''}${im.phone ? ' phone' : ''}"><img src="${esc(im.src)}" alt="${esc(im.caption)}" loading="lazy"><figcaption>${esc(im.caption)}</figcaption></figure>`;
   }
   function artCover(p) {
     return `<div class="art" style="--a:${p.color[0]};--b:${p.color[1]}"><canvas data-art="${p.art}"></canvas>
@@ -280,33 +331,181 @@
   }
 
   /* ---------- Terminal ---------- */
-  const CMDS = {
-    help: () => 'comandos: <span class="c">whoami</span> · <span class="c">fastfetch</span> · <span class="c">ls</span> · <span class="c">open &lt;proyecto&gt;</span> · <span class="c">skills</span> · <span class="c">contact</span> · <span class="c">clear</span>',
-    whoami: () => 'Jesús Aragón — Software Engineer | Full-Stack SaaS, AI/ML, Swift &amp; Unity',
-    ls: () => PROJECTS.map(p => `<span class="c">${p.id}/</span>`).join('  '),
-    skills: () => '<span class="k">lenguajes</span>  TypeScript · Python · Swift · C# · C++ · PHP · Java · SQL<br><span class="k">frameworks</span> React · .NET · iOS SDK · Unity · Laravel · Supabase<br><span class="k">ia</span>         Ollama · BionicGPT · ComfyUI · CUDA<br><span class="k">sistemas</span>   Git · Linux · CMake · Arduino · CCNA',
-    contact: () => `<a href="mailto:${ME.email}">${ME.email}</a> · <a href="https://github.com/${ME.user}" target="_blank">github.com/${ME.user}</a>`,
-    fastfetch: () => `<span class="p">${ME.user.toLowerCase()}</span>@<span class="p">macbook</span><br>-----------------<br><span class="k">OS</span>: macOS (Apple silicon)<br><span class="k">Host</span>: UTT · Ing. Entornos Virtuales y Negocios Digitales<br><span class="k">Uptime</span>: estudiando desde 2023 · grad. 2027<br><span class="k">Shell</span>: zsh + Xcode + Unity<br><span class="k">Location</span>: Tijuana, BC 🇲🇽<br><span class="k">Langs</span>: Español (nativo) · English (B1)`,
+  const PROMPT = `<span class="p">jesus@MacBook-Pro</span> <span class="c">~</span> %`;
+  const APPLE = [
+    ["                    'c.", '#3fb950'], ["                 ,xNMM.", '#3fb950'], ["               .OMMMMo", '#3fb950'], ["               OMMM0,", '#3fb950'],
+    ["     .;loddo:' loolloddol;.", '#e3b341'], ["   cKMMMMMMMMMMNWMMMMMMMMMM0:", '#e3b341'],
+    [" .KMMMMMMMMMMMMMMMMMMMMMMMWd.", '#f0883e'], [" XMMMMMMMMMMMMMMMMMMMMMMMX.", '#f0883e'], [";MMMMMMMMMMMMMMMMMMMMMMMM:", '#f0883e'],
+    [":MMMMMMMMMMMMMMMMMMMMMMMM:", '#f85149'], [".MMMMMMMMMMMMMMMMMMMMMMMMX.", '#f85149'],
+    [" kMMMMMMMMMMMMMMMMMMMMMMMMWd.", '#d2a8ff'], [" .XMMMMMMMMMMMMMMMMMMMMMMMMMMk", '#d2a8ff'], ["  .XMMMMMMMMMMMMMMMMMMMMMMMMK.", '#d2a8ff'],
+    ["    kMMMMMMMMMMMMMMMMMMMMMMd", '#58a6ff'], ["     ;KMMMMMMMWXXWMMMMMMMk.", '#58a6ff'], ["       .cooc,.    .,coo:.", '#58a6ff'],
+  ];
+  const FF_INFO = [
+    ['', '<span class="p">jesus</span>@<span class="p">MacBook-Pro</span>'], ['', '<span class="muted">-----------------</span>'],
+    ['OS', 'macOS · Apple silicon'], ['Host', 'Jesús Aragón · Software Engineer'],
+    ['Uni', 'UTT · Ing. Entornos Virtuales y Negocios Digitales'], ['Uptime', '2023 → grad. 2027'],
+    ['Shell', 'zsh · Xcode · Unity · VS Code'], ['Langs', 'TypeScript · Python · Swift · C# · C++'],
+    ['Stack', 'React · .NET · iOS SDK · Metal · Supabase'], ['AI/ML', 'Ollama · ComfyUI · Core ML · CUDA'],
+    ['XR', 'Unity VR · LiDAR · Gaussian Splatting'], ['Locale', 'Tijuana, BC 🇲🇽 · ES / EN (B1)'],
+  ];
+  const fastfetch = () => {
+    const logo = APPLE.map(([l, c]) => `<span style="color:${c};font-weight:700">${esc(l)}</span>`).join('\n');
+    const info = FF_INFO.map(([k, v]) => k ? `<span class="k">${k}</span>: ${v}` : v).join('\n')
+      + '\n\n' + ['#484f58', '#f85149', '#3fb950', '#e3b341', '#58a6ff', '#d2a8ff', '#39c5cf', '#e6edf3'].map(c => `<i class="ff-c" style="background:${c}"></i>`).join('');
+    return `<div class="ff"><pre class="ff-logo">${logo}</pre><pre class="ff-info">${info}</pre></div>`;
   };
-  function termBody() {
-    return `<div class="term"><div class="term-out">
-      <div><span class="p">${ME.user.toLowerCase()}@portfolio</span>:~$ <span class="c">fastfetch</span></div><div>${CMDS.fastfetch()}</div><br>
-      <div class="muted">escribe <span class="c">help</span> para ver comandos</div></div>
-      <label class="term-in"><span class="p">~$</span><input aria-label="Comando" autocomplete="off" spellcheck="false"></label></div>`;
+  const findProject = a => {
+    if (!a) return null;
+    a = a.replace(/\/$/, '');
+    return PROJECTS.find(p => p.id === a || p.name.toLowerCase() === a || p.title.toLowerCase() === a
+      || p.name.toLowerCase().replace(/[^a-z0-9]/g, '').startsWith(a.replace(/[^a-z0-9]/g, '')));
+  };
+  const projLink = p => `<button class="c lnk" data-open="${p.id}">${p.id}/</button>`;
+  const termHistory = [];
+
+  const CMDS = {
+    help: () => [
+      ['whoami', 'quién soy'], ['fastfetch', 'info del sistema'], ['ls', 'lista de proyectos (clic para abrir)'],
+      ['open &lt;proyecto&gt;', 'abre la ventana del proyecto'], ['cat &lt;proyecto&gt;', 'resumen en texto'],
+      ['skills', 'mi stack'], ['contact', 'cómo contactarme'], ['repos · cv', 'abre esas ventanas'],
+      ['theme dark|light', 'cambia el modo'], ['history · date · pwd · echo', 'lo clásico'], ['clear · exit', 'limpiar · cerrar'],
+    ].map(([c, d]) => `<span class="c">${c.padEnd(28, ' ')}</span><span class="muted">${d}</span>`).join('\n')
+      + '\n<span class="muted">tips: ↑/↓ historial · Tab autocompleta · Ctrl+L limpia</span>',
+    whoami: () => 'Jesús Aragón — Software Engineer | Full-Stack SaaS, AI/ML, Swift &amp; Unity',
+    fastfetch,
+    ls: () => PROJECTS.map(projLink).join('  '),
+    cat: a => {
+      if (!a) return 'uso: cat &lt;proyecto&gt;  (prueba <span class="c">ls</span>)';
+      const p = findProject(a);
+      if (!p) return `cat: ${esc(a)}: no existe ese proyecto`;
+      return `<span class="k">${esc(p.title)}</span>  <span class="muted">${esc(p.type)}</span>\n${esc(p.intro)}\n<span class="muted">→</span> ${projLink(p)} <span class="muted">para ver más</span>`;
+    },
+    open: a => {
+      if (!a) return 'uso: open &lt;proyecto&gt;  (prueba <span class="c">ls</span>)';
+      const p = findProject(a) || (WINDOWS[a] && { id: a });
+      if (!p) return `open: no existe el proyecto '${esc(a)}'. Usa <span class="c">ls</span> para verlos.`;
+      openWin(p.id); return `abriendo ${esc(p.id)}…`;
+    },
+    skills: () => '<span class="k">lenguajes </span> TypeScript · Python · Swift · C# · C++ · PHP · Java · Kotlin · SQL\n<span class="k">frameworks</span> React · .NET · iOS SDK · SwiftUI · Unity · Laravel · Supabase\n<span class="k">apple     </span> ARKit · RealityKit · Metal · Core ML · Xcode\n<span class="k">ia        </span> Ollama · BionicGPT · ComfyUI · CUDA\n<span class="k">sistemas  </span> Git · Linux · CMake · Arduino · CCNA',
+    contact: () => `<span class="k">email </span> <a href="mailto:${ME.email}">${ME.email}</a>\n<span class="k">github</span> <a href="https://github.com/${ME.user}" target="_blank" rel="noopener">github.com/${ME.user}</a>\n<span class="k">x     </span> <a href="https://x.com/${ME.x}" target="_blank" rel="noopener">@${ME.x}</a>`,
+    repos: () => { openWin('repos'); return 'abriendo github.com/' + ME.user + '…'; },
+    cv: () => { openWin('resume'); return 'abriendo CV_Jesus.pdf…'; },
+    theme: a => {
+      const want = a === 'dark' ? true : a === 'light' ? false : !document.body.classList.contains('dark');
+      if (document.body.classList.contains('dark') !== want) document.getElementById('theme').click();
+      return `modo ${want ? 'oscuro 🌙' : 'claro ☀️'}`;
+    },
+    history: () => termHistory.map((h, i) => `<span class="muted">${String(i + 1).padStart(3, ' ')}</span>  ${esc(h)}`).join('\n') || '(vacío)',
+    date: () => new Date().toLocaleString('es-MX', { dateStyle: 'full', timeStyle: 'short' }),
+    pwd: () => '/Users/jesus/portfolio',
+    cd: a => a && a !== '~' && a !== '.' ? `cd: aquí no hay carpetas reales 😅 prueba <span class="c">open ${esc(a)}</span>` : '',
+    echo: (a, rest) => esc(rest),
+    sudo: () => 'buen intento 😏 este Mac es mío',
+    exit: (a, r, ctx) => { setTimeout(() => ctx.win.querySelector('.close').click(), 250); return 'logout\n[Proceso completado]'; },
+    rm: (a, rest, ctx) => {
+      if (!/-rf?\s+\/?$|-rf \//.test(rest)) return 'rm: mejor no borremos nada 🙃';
+      const files = ['/System/Library', '/Applications/Xcode.app', '/Users/jesus/Forma', '/Users/jesus/NX-Port-Studio', '/usr/bin', '/portfolio/index.html'];
+      files.forEach((f, i) => setTimeout(() => ctx.print(`<span style="color:#f85149">removing</span> ${f}…`), 220 * (i + 1)));
+      setTimeout(() => ctx.print('<span class="p">jk 😅 no se borró nada. Respira.</span>'), 220 * (files.length + 2));
+      return '';
+    },
+    matrix: (a, r, ctx) => { matrixRain(ctx.win); return '<span class="p">wake up, Neo…</span>'; },
+  };
+  const ALIAS = { neofetch: 'fastfetch', ayuda: 'help', contacto: 'contact', proyectos: 'ls', dir: 'ls', cls: 'clear', quit: 'exit', 'man': 'help' };
+  const ALL = [...Object.keys(CMDS), 'clear'];
+  function lev(a, b) {
+    const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+    for (let j = 1; j <= b.length; j++) d[0][j] = j;
+    for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++)
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    return d[a.length][b.length];
   }
+  function matrixRain(win) {
+    const body = win.querySelector('.wbody'), cv = document.createElement('canvas');
+    cv.className = 'matrix'; body.appendChild(cv);
+    const g = cv.getContext('2d'), W = cv.width = body.clientWidth, H = cv.height = body.clientHeight;
+    cv.style.top = body.scrollTop + 'px';
+    const cols = Array(Math.floor(W / 14)).fill(0), chars = 'アイウエオカキクケコ01ABCDEF<>/{}λΣ';
+    const id = setInterval(() => {
+      g.fillStyle = 'rgba(13,22,32,.18)'; g.fillRect(0, 0, W, H);
+      g.fillStyle = '#34d399'; g.font = '14px JetBrains Mono, monospace';
+      cols.forEach((y, i) => { g.fillText(chars[Math.random() * chars.length | 0], i * 14, y); cols[i] = y > H + Math.random() * 1e4 ? 0 : y + 14; });
+    }, 45);
+    setTimeout(() => { clearInterval(id); cv.remove(); }, 4500);
+  }
+
+  function termBody() {
+    return `<div class="term"><div class="term-out"></div>
+      <label class="term-in">${PROMPT}<input aria-label="Comando" autocomplete="off" autocapitalize="off" spellcheck="false"></label></div>`;
+  }
+  function termBoot(win) {
+    const out = win.querySelector('.term-out'), inp = win.querySelector('input');
+    const line = document.createElement('div'); line.innerHTML = PROMPT + ' <span class="cmd"></span>';
+    out.appendChild(line);
+    const span = line.querySelector('.cmd'), word = 'fastfetch';
+    let i = 0;
+    const type = () => {
+      if (i <= word.length) { span.textContent = word.slice(0, i++); setTimeout(type, 55); return; }
+      out.insertAdjacentHTML('beforeend', `<div class="res">${fastfetch()}</div><div class="muted">escribe <span class="c">help</span> para ver comandos</div>`);
+      inp.focus();
+    };
+    matchMedia('(prefers-reduced-motion: reduce)').matches ? (i = word.length + 1, type()) : setTimeout(type, 250);
+    win.querySelector('.wbody').addEventListener('click', e => { if (!e.target.closest('a, button, input') && !getSelection().toString()) inp.focus(); });
+  }
+  function runCmd(inp) {
+    const win = inp.closest('.window'), out = win.querySelector('.term-out'), body = win.querySelector('.wbody');
+    const raw = inp.value.trim(); inp.value = '';
+    const print = html => { out.insertAdjacentHTML('beforeend', `<div class="res">${html}</div>`); body.scrollTop = body.scrollHeight; };
+    out.insertAdjacentHTML('beforeend', `<div>${PROMPT} ${esc(raw)}</div>`);
+    if (!raw) { body.scrollTop = body.scrollHeight; return; }
+    if (termHistory[termHistory.length - 1] !== raw) termHistory.push(raw);
+    hIdx = termHistory.length;
+    let [cmd, ...args] = raw.split(/\s+/);
+    cmd = ALIAS[cmd.toLowerCase()] || cmd.toLowerCase();
+    const arg = (args[0] || '').toLowerCase(), rest = raw.slice(raw.indexOf(' ') + 1 || raw.length);
+    if (cmd === 'clear') { out.innerHTML = ''; return; }
+    let res;
+    if (CMDS[cmd]) res = CMDS[cmd](arg, cmd === 'echo' ? rest : args.join(' ').toLowerCase(), { win, print });
+    else {
+      const best = ALL.map(c => [c, lev(cmd, c)]).sort((a, b) => a[1] - b[1])[0];
+      res = `zsh: command not found: ${esc(cmd)}` + (best[1] <= 2 ? `\n¿quisiste decir <button class="c lnk" data-run="${best[0]}">${best[0]}</button>?` : '');
+    }
+    if (res) print(res);
+    body.scrollTop = body.scrollHeight;
+  }
+  let hIdx = 0;
   document.addEventListener('keydown', e => {
     const inp = e.target.closest?.('.term-in input');
-    if (!inp || e.key !== 'Enter') return;
-    const out = inp.closest('.term').querySelector('.term-out');
-    const raw = inp.value.trim(); inp.value = '';
-    const [cmd, arg] = raw.toLowerCase().split(/\s+/);
-    let res;
-    if (!cmd) return;
-    if (cmd === 'clear') { out.innerHTML = ''; return; }
-    if (cmd === 'open' && WINDOWS[arg]) { openWin(arg); res = `abriendo ${esc(arg)}…`; }
-    else res = CMDS[cmd] ? CMDS[cmd]() : `zsh: command not found: ${esc(cmd)}`;
-    out.insertAdjacentHTML('beforeend', `<div><span class="p">~$</span> ${esc(raw)}</div><div>${res}</div>`);
-    out.parentElement.parentElement.scrollTop = 1e6;
+    if (!inp) return;
+    if (e.key === 'Enter') { e.preventDefault(); runCmd(inp); }
+    else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+      if (!termHistory.length) return;
+      e.preventDefault();
+      hIdx = Math.max(0, Math.min(termHistory.length, hIdx + (e.key === 'ArrowUp' ? -1 : 1)));
+      inp.value = termHistory[hIdx] || '';
+      requestAnimationFrame(() => inp.setSelectionRange(inp.value.length, inp.value.length));
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      const v = inp.value.toLowerCase(), parts = v.split(/\s+/);
+      const pool = parts.length > 1 ? (['open', 'cat'].includes(parts[0]) ? PROJECTS.map(p => p.id) : parts[0] === 'theme' ? ['dark', 'light'] : []) : ALL;
+      const word = parts[parts.length - 1], hits = pool.filter(c => c.startsWith(word));
+      const out = inp.closest('.window').querySelector('.term-out');
+      if (hits.length === 1) { parts[parts.length - 1] = hits[0]; inp.value = parts.join(' ') + ' '; }
+      else if (hits.length > 1) {
+        let pre = hits[0]; hits.forEach(h => { while (!h.startsWith(pre)) pre = pre.slice(0, -1); });
+        parts[parts.length - 1] = pre; inp.value = parts.join(' ');
+        out.insertAdjacentHTML('beforeend', `<div class="res muted">${hits.join('   ')}</div>`);
+        inp.closest('.wbody').scrollTop = 1e6;
+      }
+    } else if (e.key.toLowerCase() === 'l' && e.ctrlKey) {
+      e.preventDefault(); inp.closest('.window').querySelector('.term-out').innerHTML = '';
+    }
+  });
+  document.addEventListener('click', e => {
+    const r = e.target.closest('[data-run]');
+    if (!r) return;
+    const inp = r.closest('.window').querySelector('.term-in input');
+    inp.value = r.dataset.run; runCmd(inp); inp.focus();
   });
 
   /* ---------- Ventanas ---------- */
@@ -338,7 +537,7 @@
         <div class="repo-grid">${REPOS_FALLBACK.map(repoCard).join('')}</div>
         <a class="btn" href="https://github.com/${ME.user}" target="_blank" rel="noopener">Ver perfil completo ↗</a>
       </div>`, after: loadRepos },
-    terminal: { title: 'zsh — jesus@portfolio', w: 620, cls: 'term', body: termBody, after: el => el.querySelector('input').focus() },
+    terminal: { title: 'jesus — -zsh — 80×24', w: 760, cls: 'term', body: termBody, after: termBoot },
     kind: { title: 'Stack.txt', w: 560, body: `
       <div class="txt">
         <p><b>// lenguajes</b><br>TypeScript, Python, Swift, C#, C++, PHP, JavaScript, Java, SQL, HTML5, CSS3</p>
