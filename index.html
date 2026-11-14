@@ -42,7 +42,7 @@
         <li class="done">Ganarle a mi bot de Clash Royale</li>
         <li>Graduarme de la UTT (2027) 🎓</li>
         <li class="done">Tomar agua (y sacarla del iPhone)</li>
-        <li>Construir mi portafolio soñado ✦</li>
+        <li class="done">Construir mi portafolio soñado ✦</li>
       </ul>
     </div>
 
@@ -66,7 +66,8 @@
     <button class="dock-app" data-open="contact"  title="Contacto"><span style="--c:#38bdf8">✉</span></button>
     <button class="dock-app" data-open="resume"   title="CV"><span style="--c:#ffffff; color:#0b3b60" class="sm">CV</span></button>
     <i class="dock-sep"></i>
-    <button class="dock-app open-me" data-open="secret" title="ábreme"><span style="--c:#7dd3c0">♡</span></button>
+    <button class="dock-app" id="theme" title="Modo oscuro"><span style="--c:#0f1c2b" id="theme-ico">☾</span></button>
+    <button class="dock-app open-me" data-open="secret" title="ábreme"><span style="--c:#1e40af">🎮</span></button>
   </nav>
 
   <script>
@@ -274,16 +275,16 @@
 
   /* ---------- Terminal ---------- */
   const CMDS = {
-    help: () => 'comandos: <span class="c">whoami</span> · <span class="c">neofetch</span> · <span class="c">ls</span> · <span class="c">open &lt;proyecto&gt;</span> · <span class="c">skills</span> · <span class="c">contact</span> · <span class="c">clear</span>',
+    help: () => 'comandos: <span class="c">whoami</span> · <span class="c">fastfetch</span> · <span class="c">ls</span> · <span class="c">open &lt;proyecto&gt;</span> · <span class="c">skills</span> · <span class="c">contact</span> · <span class="c">clear</span>',
     whoami: () => 'Jesús Aragón — Software Engineer | Full-Stack SaaS, AI/ML, Swift &amp; Unity',
     ls: () => PROJECTS.map(p => `<span class="c">${p.id}/</span>`).join('  '),
     skills: () => '<span class="k">lenguajes</span>  TypeScript · Python · Swift · C# · C++ · PHP · Java · SQL<br><span class="k">frameworks</span> React · .NET · iOS SDK · Unity · Laravel · Supabase<br><span class="k">ia</span>         Ollama · BionicGPT · ComfyUI · CUDA<br><span class="k">sistemas</span>   Git · Linux · CMake · Arduino · CCNA',
     contact: () => `<a href="mailto:${ME.email}">${ME.email}</a> · <a href="https://github.com/${ME.user}" target="_blank">github.com/${ME.user}</a>`,
-    neofetch: () => `<span class="p">${ME.user.toLowerCase()}</span>@<span class="p">macbook</span><br>-----------------<br><span class="k">OS</span>: macOS (Apple silicon)<br><span class="k">Host</span>: UTT · Ing. Entornos Virtuales y Negocios Digitales<br><span class="k">Uptime</span>: estudiando desde 2023 · grad. 2027<br><span class="k">Shell</span>: zsh + Xcode + Unity<br><span class="k">Location</span>: Tijuana, BC 🇲🇽<br><span class="k">Langs</span>: Español (nativo) · English (B1)`,
+    fastfetch: () => `<span class="p">${ME.user.toLowerCase()}</span>@<span class="p">macbook</span><br>-----------------<br><span class="k">OS</span>: macOS (Apple silicon)<br><span class="k">Host</span>: UTT · Ing. Entornos Virtuales y Negocios Digitales<br><span class="k">Uptime</span>: estudiando desde 2023 · grad. 2027<br><span class="k">Shell</span>: zsh + Xcode + Unity<br><span class="k">Location</span>: Tijuana, BC 🇲🇽<br><span class="k">Langs</span>: Español (nativo) · English (B1)`,
   };
   function termBody() {
     return `<div class="term"><div class="term-out">
-      <div><span class="p">${ME.user.toLowerCase()}@portfolio</span>:~$ <span class="c">neofetch</span></div><div>${CMDS.neofetch()}</div><br>
+      <div><span class="p">${ME.user.toLowerCase()}@portfolio</span>:~$ <span class="c">fastfetch</span></div><div>${CMDS.fastfetch()}</div><br>
       <div class="muted">escribe <span class="c">help</span> para ver comandos</div></div>
       <label class="term-in"><span class="p">~$</span><input aria-label="Comando" autocomplete="off" spellcheck="false"></label></div>`;
   }
@@ -307,7 +308,7 @@
     about: { title: 'Sobre mí', w: 760, big: true, body: `
       <div class="about">
         <div class="about-banner"><canvas data-art="mesh"></canvas>
-          <div class="avatar">J</div>
+          <img class="avatar" src="https://github.com/RobiiAragon.png?size=200" alt="Foto de Jesús Aragón">
           <div class="who"><b>Hola, soy Jesús ✦</b><span>Software Engineer · Tijuana, BC</span></div>
         </div>
         <div class="about-text">
@@ -526,31 +527,76 @@
     }
   }
 
-  /* ---------- Nube de puntos 3D girando (fondo) ---------- */
+  /* ---------- Red neuronal animada (fondo) ---------- */
   (() => {
     const cv = document.getElementById('cloud'), g = cv.getContext('2d');
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const P = [];
-    for (let i = 0; i < 420; i++) {          // un "torus" escaneado
-      const u = Math.random() * Math.PI * 2, v = Math.random() * Math.PI * 2, R = 1, r = .38;
-      P.push([(R + r * Math.cos(v)) * Math.cos(u), r * Math.sin(v), (R + r * Math.cos(v)) * Math.sin(u)]);
-    }
-    let a = 0, mx = 0, my = 0;
-    addEventListener('pointermove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
-    function frame() {
-      const dpr = devicePixelRatio || 1, W = cv.width = cv.clientWidth * dpr, H = cv.height = cv.clientHeight * dpr;
-      const cx = W * .5, cy = H * .42, s = Math.min(W, H) * .32;
-      a += .0035; const ay = a + mx * .6, ax = .5 + my * .4;
-      P.forEach(([x, y, zz]) => {
-        let X = x * Math.cos(ay) - zz * Math.sin(ay), Z = x * Math.sin(ay) + zz * Math.cos(ay);
-        let Y = y * Math.cos(ax) - Z * Math.sin(ax); Z = y * Math.sin(ax) + Z * Math.cos(ax);
-        const k = 2.6 / (2.6 + Z), t = (Z + 1.4) / 2.8;
-        g.fillStyle = `rgba(${15 + 40 * t | 0}, ${120 + 60 * (1 - t) | 0}, ${170 - 20 * t | 0}, ${.12 + .28 * (1 - t)})`;
-        g.beginPath(); g.arc(cx + X * s * k, cy + Y * s * k, 1.8 * dpr * k, 0, 7); g.fill();
+    const LAYERS = [5, 8, 11, 11, 8, 4];           // entrada → capas ocultas → salida
+    let W, H, dpr, nodes = [], edges = [], pulses = [], mx = -1e4, my = -1e4;
+    function build() {
+      dpr = devicePixelRatio || 1;
+      W = cv.width = cv.clientWidth * dpr; H = cv.height = cv.clientHeight * dpr;
+      nodes = []; edges = [];
+      const x0 = W * .08, x1 = W * .92, top = H * .12, bot = H * .86;
+      LAYERS.forEach((n, li) => {
+        const x = x0 + (x1 - x0) * li / (LAYERS.length - 1);
+        for (let i = 0; i < n; i++) {
+          const y = top + (bot - top) * (i + .5) / n;
+          nodes.push({ x, y, li, glow: 0, ph: Math.random() * 6.28 });
+        }
       });
-      if (!reduce) requestAnimationFrame(frame);
+      nodes.forEach(a => nodes.forEach(b => { if (b.li === a.li + 1 && Math.random() < .55) edges.push({ a, b, w: Math.random() }); }));
     }
-    frame();
+    function spawn() {
+      const starts = edges.filter(e => e.a.li === 0);
+      const e = starts[Math.random() * starts.length | 0];
+      if (e) pulses.push({ e, t: 0, v: .012 + Math.random() * .01 });
+    }
+    addEventListener('resize', build);
+    addEventListener('pointermove', e => { const r = cv.getBoundingClientRect(); mx = (e.clientX - r.left) * dpr; my = (e.clientY - r.top) * dpr; });
+    build();
+    let last = 0;
+    function frame(now) {
+      g.clearRect(0, 0, W, H);
+      if (!reduce && now - last > 140) { spawn(); last = now; }
+      // conexiones
+      edges.forEach(({ a, b, w }) => {
+        g.strokeStyle = document.body.classList.contains('dark') ? `rgba(56, 189, 248, ${.05 + w * .09})` : `rgba(15, 118, 160, ${.05 + w * .07})`; g.lineWidth = dpr * (.5 + w * .8);
+        g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke();
+      });
+      // señales que viajan por la red
+      pulses = pulses.filter(p => {
+        p.t += p.v;
+        const { a, b } = p.e, x = a.x + (b.x - a.x) * p.t, y = a.y + (b.y - a.y) * p.t;
+        const grd = g.createLinearGradient(a.x + (b.x - a.x) * Math.max(0, p.t - .25), a.y + (b.y - a.y) * Math.max(0, p.t - .25), x, y);
+        grd.addColorStop(0, 'rgba(52,211,153,0)'); grd.addColorStop(1, 'rgba(16,185,129,.75)');
+        g.strokeStyle = grd; g.lineWidth = 2 * dpr; g.beginPath();
+        g.moveTo(a.x + (b.x - a.x) * Math.max(0, p.t - .25), a.y + (b.y - a.y) * Math.max(0, p.t - .25)); g.lineTo(x, y); g.stroke();
+        g.fillStyle = '#10b981'; g.beginPath(); g.arc(x, y, 2.4 * dpr, 0, 7); g.fill();
+        if (p.t >= 1) {
+          b.glow = 1;
+          const next = edges.filter(e => e.a === b);
+          if (next.length && Math.random() < .9) pulses.push({ e: next[Math.random() * next.length | 0], t: 0, v: p.v });
+          return false;
+        }
+        return true;
+      });
+      // neuronas
+      nodes.forEach(n => {
+        const near = Math.max(0, 1 - Math.hypot(n.x - mx, n.y - my) / (160 * dpr));
+        n.glow = Math.max(n.glow * .95, near);
+        const r = (4 + n.glow * 3 + Math.sin(now / 900 + n.ph) * .6) * dpr;
+        if (n.glow > .05) { g.fillStyle = `rgba(52,211,153,${n.glow * .25})`; g.beginPath(); g.arc(n.x, n.y, r * 3, 0, 7); g.fill(); }
+        const dk = document.body.classList.contains('dark'); g.fillStyle = dk ? '#0b1726' : '#ffffff'; g.strokeStyle = n.glow > .3 ? '#34d399' : (dk ? 'rgba(56,189,248,.55)' : 'rgba(37,99,235,.45)'); g.lineWidth = 1.5 * dpr;
+        g.beginPath(); g.arc(n.x, n.y, r, 0, 7); g.fill(); g.stroke();
+      });
+      // etiquetas de capas
+      g.font = `${10 * dpr}px JetBrains Mono, monospace`; g.fillStyle = document.body.classList.contains('dark') ? 'rgba(160,210,240,.35)' : 'rgba(15,60,90,.35)'; g.textAlign = 'center';
+      ['input', 'dense_1', 'dense_2', 'dense_3', 'dense_4', 'output'].forEach((t, i) =>
+        g.fillText(t, W * .08 + (W * .84) * i / (LAYERS.length - 1), H * .93));
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
   })();
 
   /* ---------- Letras de "portafolio." crecen cerca del mouse ---------- */
@@ -581,6 +627,24 @@
       s.textContent = shapes[Math.random() * shapes.length | 0];
       s.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;font-size:${8 + Math.random() * 11}px;color:${colors[Math.random() * colors.length | 0]};--dx:${(Math.random() - .5) * 40}px;--dy:${12 + Math.random() * 30}px;--r:${(Math.random() - .5) * 180}deg;`;
       layer.appendChild(s); s.addEventListener('animationend', () => s.remove());
+    });
+  })();
+
+  /* ---------- Modo oscuro ---------- */
+  (() => {
+    const btn = document.getElementById('theme'), ico = document.getElementById('theme-ico');
+    const set = on => {
+      document.body.classList.toggle('dark', on);
+      ico.textContent = on ? '☀' : '☾';
+      btn.title = on ? 'Modo claro' : 'Modo oscuro';
+      ico.style.setProperty('--c', on ? '#f59e0b' : '#0f1c2b');
+    };
+    let saved = null;
+    try { saved = localStorage.getItem('theme'); } catch {}
+    set(saved ? saved === 'dark' : false);
+    btn.addEventListener('click', () => {
+      const on = !document.body.classList.contains('dark'); set(on);
+      try { localStorage.setItem('theme', on ? 'dark' : 'light'); } catch {}
     });
   })();
 
