@@ -114,7 +114,6 @@
       title: 'Forma', type: 'iOS · iPadOS · macOS · Swift · Metal · Open source',
       intro: 'Estudio de escaneo 3D local para iPhone, iPad y Mac. Junta LiDAR, fotogrametría y Gaussian Splatting en una sola app nativa, y todo corre en el dispositivo: sin nube, sin cuenta y sin suscripción.',
       hero: [{ src: 'images/forma/iphone-home.png', caption: 'Pantalla de inicio de Forma en iPhone', phone: true }],
-      quote: 'Convierte lo que te rodea en modelos 3D que puedes conservar: de la captura a la exportación, todo en tu propio hardware.',
       link: { url: 'https://github.com/RobiiAragon/Forma/releases/latest', label: 'Descargar' },
       repo: 'Forma',
       sections: [
@@ -138,7 +137,6 @@
       title: 'Royale Local', type: 'macOS · Swift · Node.js · ONNX · Showcase',
       intro: 'Un agente de juego en tiempo real que corre 100% en tu Mac: ve la partida, entiende el tablero, elige carta y posición, y la juega. Sin modelos en la nube y sin API keys.',
       hero: [{ src: 'images/royale/app-live.jpg', caption: 'Leyendo una partida en vivo: tiempo, elixir, vida de torres, mano y tropas rivales a 58 Hz', wide: true }],
-      quote: 'Medir, no suponer: lo que no se ve se muestra como “—” y el agente espera un estado válido antes de actuar.',
       repo: 'Royale-Local',
       sections: [
         { heading: 'Lo destacado', list: [
@@ -205,21 +203,31 @@
       ],
     },
     {
-      id: 'yoby', name: 'Yoby · BajaPoke SaaS', x: 80, y: 72, color: ['#0f766e', '#38bdf8'], glyph: '◆',
-      title: 'Yoby / BajaPoke', type: 'SaaS full-stack · Lead Programmer · Freelance · 2026',
-      intro: 'MVP SaaS para la cadena de restaurantes BajaPoke que centraliza vacantes por sucursal y la evaluación de candidatos, con IA generativa de por medio.',
-      art: 'bars',
+      id: 'yoby', name: 'Yoby', x: 80, y: 72, color: ['#065f46', '#10b981'],
+      title: 'Yoby', type: 'SaaS full-stack · Lead Programmer · Freelance · 2026',
+      intro: 'Bolsa de trabajo local para Baja California: conecta a personas que buscan empleo con negocios que necesitan contratar en Tijuana, Rosarito, Tecate y Ensenada. Nació como MVP para la cadena de restaurantes Baja Poke, su primer cliente.',
+      hero: [{ src: 'images/yoby/home.jpg', caption: 'Inicio: un flujo para candidatos y otro para empleadores', wide: true }],
       link: { url: 'https://yoby-five.vercel.app', label: 'Ver app en vivo' },
       sections: [
-        { heading: 'Lo que construí', list: [
-          'Arquitectura y despliegue del MVP completo como programador líder.',
-          'Generador de CV asistido por IA para los candidatos.',
-          'Pipeline automático de segmentación de candidatos.',
+        { heading: 'Para candidatos', list: [
+          'Vacantes con sueldo, turno, ciudad y requisitos visibles desde el principio.',
+          'Filtros por ciudad, puesto y categoría; puedes leer cada oferta completa antes de crear tu cuenta.',
+          'Perfil con experiencia, habilidades y disponibilidad, y seguimiento de la conversación con el negocio.',
+        ], images: [
+          { src: 'images/yoby/empleos.jpg', caption: 'Búsqueda de vacantes' },
+          { src: 'images/yoby/mobile.jpg', caption: 'Versión móvil', phone: true },
         ] },
-        { heading: 'Negocio digital', text: [
-          'El reto no era solo técnico: había que entender el proceso de contratación de una cadena real y convertirlo en un producto que los gerentes de sucursal usaran sin capacitación.',
+        { heading: 'Para empleadores', list: [
+          'Perfil del negocio con sus sucursales; las cuentas se verifican antes de habilitar la contratación.',
+          'Publicación de vacantes claras y flujo postulación → chat → entrevista en un solo lugar.',
+          'Generador de CV asistido por IA y segmentación automática de candidatos.',
+        ], images: [
+          { src: 'images/yoby/empleadores.jpg', caption: 'Página para empleadores', wide: true },
         ] },
-        { heading: 'Stack', chips: ['TypeScript', 'React', 'Supabase', 'APIs de IA generativa'] },
+        { heading: 'Mi rol', text: [
+          'Programador líder: arquitectura, desarrollo y despliegue del producto completo. El reto también fue de negocio: entender cómo contrata una cadena real y convertirlo en algo que los gerentes de sucursal usen sin capacitación.',
+        ] },
+        { heading: 'Stack', chips: ['TypeScript', 'React', 'Supabase', 'Vercel', 'APIs de IA generativa'] },
       ],
     },
     {
