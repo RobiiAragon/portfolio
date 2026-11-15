@@ -126,7 +126,7 @@
           'Híbrido iPhone ⇄ Mac: manda capturas por red local a Forma Desktop para el procesamiento pesado.',
           'IA local: mejora de texturas con Core ML (Real-ESRGAN).',
           'Exporta OBJ, PLY, STL o USDZ, y muestra el progreso en Live Activity / Dynamic Island.',
-        ] },
+        ], images: [{ src: 'images/forma/simulator-home.png', caption: 'Biblioteca y modos de captura', phone: true }] },
         { heading: 'Arquitectura', text: [
           'SwiftUI + ARKit + RealityKit/SceneKit + Metal + Core ML, con view models estilo MVVM y servicios que hacen el trabajo pesado. Incluye la app de iOS, Forma Desktop para macOS y la extensión de Live Activity.',
         ] },
@@ -134,17 +134,61 @@
       ],
     },
     {
-      id: 'royale', name: 'Royale Local ML', x: 80, y: 32, color: ['#1e40af', '#f59e0b'], glyph: '♛',
-      title: 'Bot autónomo de Clash Royale', type: 'Python · Machine Learning · Visión por computadora',
-      intro: 'Un agente de Machine Learning que juega Clash Royale por sí solo, percibiendo el estado del juego en tiempo real y eligiendo qué carta jugar y dónde.',
-      art: 'grid',
+      id: 'royale', name: 'Royale Local', x: 80, y: 32, color: ['#1e1b4b', '#8957e5'],
+      title: 'Royale Local', type: 'macOS · Swift · Node.js · ONNX · Showcase',
+      intro: 'Un agente de juego en tiempo real que corre 100% en tu Mac: ve la partida, entiende el tablero, elige carta y posición, y la juega. Sin modelos en la nube y sin API keys.',
+      hero: [{ src: 'images/royale/app-live.jpg', caption: 'Leyendo una partida en vivo: tiempo, elixir, vida de torres, mano y tropas rivales a 58 Hz', wide: true }],
+      quote: 'Medir, no suponer: lo que no se ve se muestra como “—” y el agente espera un estado válido antes de actuar.',
+      repo: 'Royale-Local',
       sections: [
-        { heading: 'Cómo funciona', list: [
-          'Percepción: lee la pantalla y detecta cartas, elixir y unidades en la arena.',
-          'Decisión: un modelo selecciona la acción (carta + posición) según el estado.',
-          'Acción: ejecuta la jugada y aprende de los resultados, todo de forma local.',
+        { heading: 'Lo destacado', list: [
+          'Captura nativa con ScreenCaptureKit: 57.6 fps reales, con 8.8 ms de antigüedad mediana por frame.',
+          'Percepción en el dispositivo: detector ONNX, reconocimiento de cartas y OCR. Ninguna imagen sale de la Mac.',
+          'Lector de estado tipado con 8.97 ms de lectura mediana; si los datos son viejos o inconsistentes, bloquea la acción en lugar de adivinar.',
+          'Planeador táctico por carril con horizonte de 4 segundos, reserva de elixir y colocación según la carta.',
+          'Ciclo de aprendizaje local: registra decisiones y resultados, y evalúa en episodios aparte antes de promover una política nueva.',
+        ], images: [
+          { src: 'images/royale/app.jpg', caption: 'Listo, esperando una partida' },
+          { src: 'images/royale/android.jpg', caption: 'Fuente: emulador de Android' },
         ] },
-        { heading: 'Stack', chips: ['Python', 'Machine Learning', 'Visión por computadora', 'Ejecución local'] },
+        { heading: 'Arquitectura', text: [
+          'App nativa en Swift/SwiftUI con vista previa y telemetría en vivo, un motor en Node 22 de ~80 módulos (fusión de estado, planeador, controlador, aprendizaje) y helpers nativos de captura y visión, incluido un componente en C/ensamblador ARM64. Funciona con iPhone Mirroring o con emuladores de Android.',
+          '296/296 pruebas pasando; en vivo confirmó 17 de 20 jugadas sin errores de input.',
+        ] },
+        { heading: 'Nota', text: ['Es un showcase de portafolio: el código no es público porque automatizar un juego en línea de terceros va contra sus términos de servicio. Sin relación con Supercell.'] },
+        { heading: 'Stack', chips: ['Swift', 'SwiftUI', 'ScreenCaptureKit', 'Node.js 22', 'ONNX Runtime', 'C', 'ARM64'] },
+      ],
+    },
+    {
+      id: 'mate', name: 'Matemáticas 3D', x: 68, y: 12, color: ['#0e7490', '#f97316'], glyph: '∫',
+      title: 'Matemáticas para Ingeniería', type: 'Python · NumPy · Matplotlib · Plotly · UTT',
+      intro: 'Visualizaciones de la materia Matemáticas para Ingeniería: un visor web interactivo de curvas paramétricas en 3D y scripts de Python para máximos, mínimos, Lagrange, derivadas parciales y transformada de Laplace.',
+      hero: [{ src: 'images/mate/web-preview.jpg', caption: 'Visor 3D interactivo de curvas paramétricas', wide: true }],
+      link: { url: 'https://robiiaragon.github.io/MatematicasParaIngenieria/', label: 'Abrir visor 3D' },
+      repo: 'MatematicasParaIngenieria',
+      sections: [
+        { heading: 'Qué incluye', list: [
+          'Visor web con Plotly: cicloide esférica y otras curvas, navegable con las flechas del teclado.',
+          'Máximos, mínimos y multiplicadores de Lagrange con curvas de nivel.',
+          'Derivadas parciales como razón de cambio y como pendiente en 3D.',
+          'Ejemplos de transformada de Laplace comprobados con SymPy y SciPy.',
+        ] },
+        { heading: 'Stack', chips: ['Python', 'NumPy', 'Matplotlib', 'Plotly', 'SymPy'] },
+      ],
+    },
+    {
+      id: 'ascii', name: 'Image to ASCII', x: 56, y: 12, color: ['#111827', '#3fb950'], glyph: '▚',
+      title: 'Image to ASCII', type: 'Python · Pillow · CLI · GPL-3.0',
+      intro: 'Convierte cualquier imagen en arte ASCII: en la terminal, en un .txt o en una página .html que conserva el color de cada pixel.',
+      hero: [{ src: 'images/ascii/preview-color.png', caption: 'Exportación a HTML a color', wide: true }],
+      repo: 'Image-to-ASCII',
+      sections: [
+        { heading: 'Funciones', list: [
+          'Proporción correcta para los caracteres de la terminal.',
+          'Tres juegos de caracteres: classic, detailed (70 niveles) y blocks.',
+          'Modo para terminal oscura o --invert para fondos blancos.',
+        ] },
+        { heading: 'Stack', chips: ['Python', 'Pillow', 'argparse'] },
       ],
     },
     {
@@ -251,7 +295,8 @@
     { name: 'NX2-Port-Studio', language: 'C', description: 'Herramientas nativas experimentales de Switch 2 para Apple silicon.' },
     { name: 'FreeRAMMac', language: 'Swift', description: 'App de barra de menú: uso de RAM de un vistazo y purga con un clic.' },
     { name: 'Bluetooth-receptor-onLAN', language: 'Kotlin', description: 'Tu Android como control de Xbox virtual para Windows por LAN.' },
-    { name: 'Image-to-ASCII', language: 'Python', description: 'Convierte imágenes a arte ASCII.' },
+    { name: 'Royale-Local', language: null, description: 'Showcase: agente de juego en tiempo real 100% local para macOS (Swift + Node, ONNX).' },
+    { name: 'Image-to-ASCII', language: 'Python', description: 'Convierte imágenes a arte ASCII: terminal, .txt o .html a color.' },
   ];
 
   const ICONS = [
