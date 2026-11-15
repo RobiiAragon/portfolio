@@ -269,7 +269,7 @@
       id: 'btlan', name: 'Bluetooth on LAN', x: 92, y: 72, color: ['#14532d', '#22c55e'], glyph: '🎮',
       title: 'Bluetooth receptor on LAN', type: 'Android · Kotlin · Windows · .NET 8',
       intro: 'Convierte cualquier teléfono o tablet Android en un control de baja latencia para tu PC con Windows por red local. Ideal para una PC sin Bluetooth.',
-      art: 'wave',
+      hero: [{ src: 'images/btlan/diagram.png', caption: 'Del control Bluetooth a tus juegos, pasando por tu red local', wide: true }],
       repo: 'Bluetooth-receptor-onLAN',
       sections: [
         { heading: 'Cómo funciona', list: [
@@ -278,20 +278,6 @@
           'Descubrimiento automático o IP:puerto manual, keepalive y servicio en segundo plano.',
         ] },
         { heading: 'Stack', chips: ['Kotlin', 'Android', 'C#', '.NET 8', 'ViGEmBus', 'TCP'] },
-      ],
-    },
-    {
-      id: 'ai', name: 'IA local & ComfyUI', x: 68, y: 72, color: ['#312e81', '#14b8a6'], glyph: '✺',
-      title: 'IA local y pipelines generativos', type: 'Ollama · BionicGPT · ComfyUI · CUDA',
-      intro: 'Servidores de inferencia de LLMs locales y flujos generativos por nodos sobre GPU, para prototipar rápido y correr IA sin depender de la nube.',
-      art: 'nodes',
-      sections: [
-        { heading: 'Qué monté', list: [
-          'LLMs locales con Ollama y BionicGPT para chat y RAG privado.',
-          'Workflows de imagen en ComfyUI acelerados con NVIDIA CUDA / Tensor.',
-          'Integración de estos modelos en mis propios proyectos (como el bot de Clash Royale).',
-        ] },
-        { heading: 'Stack', chips: ['Ollama', 'BionicGPT', 'ComfyUI', 'CUDA', 'Python', 'Linux'] },
       ],
     },
   ];
