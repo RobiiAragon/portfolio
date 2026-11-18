@@ -20,6 +20,7 @@ All the content is at the top of the `<script>` in `index.html`:
 
 - `ME`: name, GitHub username, email and X.
 - `PROJECTS`: each project is a desktop folder (`x`, `y` in % of the screen). Use `hero` for real screenshots or `art` (`mesh`, `grid`, `rings`, `bars`, `wave`, `nodes`) for a generated cover.
+- Projects with `group: 'ai'` are not placed on the desktop; they live inside the **IA On-Device** folder, which opens an overview window. A section can also hold a results `table` (`head`, `rows`) and a `note`.
 - `REPOS_FALLBACK`: repositories shown if the GitHub API does not answer.
 
 Images go in `images/` and the resume in `resume.pdf`. Colors are the `:root` variables in `style.css`.
@@ -44,6 +45,7 @@ Todo el contenido está al inicio del `<script>` en `index.html`:
 
 - `ME`: nombre, usuario de GitHub, email y X.
 - `PROJECTS`: cada proyecto es una carpeta del escritorio (`x`, `y` en % de pantalla). Usa `hero` para capturas reales o `art` (`mesh`, `grid`, `rings`, `bars`, `wave`, `nodes`) para una portada generada.
+- Los proyectos con `group: 'ai'` no van sueltos en el escritorio: viven dentro de la carpeta **IA On-Device**, que abre una ventana de resumen. Una sección también puede tener una tabla de resultados (`table` con `head` y `rows`) y una `note`.
 - `REPOS_FALLBACK`: repos que se muestran si la API de GitHub no responde. Normalmente la ventana **GitHub Repos** los carga en vivo.
 
 Las imágenes van en `images/` y el CV en `resume.pdf`. Colores en las variables `:root` de `style.css`.

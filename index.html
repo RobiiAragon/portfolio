@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jesús Aragón — Portafolio</title>
-  <meta name="description" content="Jesús Aragón: Software Engineer · Entornos Virtuales y Negocios Digitales. Swift, Unity, IA local y SaaS full-stack.">
+  <meta name="description" content="Jesús Aragón: Software Engineer · Entornos Virtuales y Negocios Digitales. Swift, Unity, IA on-device (ONNX, CoreML, Qualcomm QNN) y SaaS full-stack.">
   <meta property="og:title" content="Jesús Aragón — Portafolio">
   <meta property="og:description" content="Software Engineer · Swift, Unity/VR, IA local y SaaS full-stack. Tijuana, BC.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
@@ -287,10 +287,214 @@
         { heading: 'Stack', chips: ['Kotlin', 'Android', 'C#', '.NET 8', 'ViGEmBus', 'TCP'] },
       ],
     },
+    /* ---------- Serie IA On-Device (carpeta "IA On-Device" en el escritorio) ---------- */
+    {
+      id: 'edgebench', group: 'ai', name: 'Edge AI Bench', color: ['#0b3b60', '#2a78d6'],
+      title: 'Edge AI Bench', type: 'Python · ONNX Runtime · CoreML · Qualcomm QNN · MIT',
+      headline: 'Transformer 3.8× más rápido en CoreML que en CPU; W8A16 conserva la precisión de FP32.',
+      intro: 'Un benchmark que corre exactamente los mismos modelos ONNX en CPU, CoreML, Qualcomm QNN, NNAPI y CUDA, y responde una pregunta práctica: ¿de verdad ayuda el acelerador? Mide latencia p50/p90/p99, throughput, memoria pico, tamaño y precisión de FP32 vs INT8 vs W8A16, y cuánto del grafo toma cada execution provider.',
+      hero: [{ src: 'images/edgebench/report-transformer.jpg', caption: 'Reporte HTML: el transformer en CoreML vs CPU, y lo que cuesta cuantizarlo', wide: true }],
+      quote: 'Si el acelerador no se queda con todo el grafo, cada ida y vuelta CPU ⇄ acelerador cuesta más de lo que ahorra.',
+      link: { url: 'https://robiiaragon.github.io/edge-ai-bench/report.html', label: 'Ver reporte en vivo' },
+      repo: 'edge-ai-bench',
+      sections: [
+        { heading: 'Qué hace', list: [
+          'Detecta qué execution providers hay (CPU, CoreML, QNN, NNAPI, XNNPACK, CUDA); si falta uno, lo salta y explica cómo instalarlo.',
+          'Tres modelos pequeños entrenados con datos públicos: una CNN para dígitos (UCI), un transformer de 2 capas para SMS spam y MobileNetV3-Small.',
+          'Cuantización QDQ estática W8A8 y W8A16 (activaciones de 16 bits), la receta que usa Qualcomm para su NPU Hexagon.',
+          'Cobertura del EP leyendo el log de GetCapability de ONNX Runtime: cuántos nodos y en cuántas particiones toma el acelerador.',
+          'Cada configuración corre en su propio subproceso, así la memoria pico y los tiempos no se contaminan entre sí.',
+          'Reporte HTML multi-dispositivo publicado en GitHub Pages, e integración con Qualcomm AI Hub para compilar y perfilar en Snapdragon reales.',
+          'Scripts listos para Mac y para Android (Termux en una Galaxy Tab S9 Ultra, Snapdragon 8 Gen 2).',
+        ] },
+        { heading: 'Medido en mi Mac', table: {
+          head: ['Modelo', 'Variante', 'EP', 'p50', 'Throughput (b=16)', 'Cobertura del EP', 'Precisión'],
+          rows: [
+            ['sms-transformer', 'FP32', 'CPU', '0.291 ms', '8,335/s', 'todo (CPU)', '97.40%'],
+            ['sms-transformer', 'FP32', 'CoreML', '0.227 ms', '31,528/s', '87/88 nodos, 1 partición', '97.40%'],
+            ['sms-transformer', 'INT8', 'CPU', '0.436 ms', '4,514/s', 'todo (CPU)', '94.34%'],
+            ['sms-transformer', 'W8A16', 'CPU', '0.697 ms', '3,461/s', 'todo (CPU)', '97.40%'],
+            ['mobilenetv3-small', 'FP32', 'CPU', '1.059 ms', '1,958/s', 'todo (CPU)', '—'],
+            ['mobilenetv3-small', 'FP32', 'CoreML', '2.993 ms', '628/s', '38/60 nodos, 19 particiones', '—'],
+            ['digits-cnn', 'INT8', 'CPU', '0.078 ms', '19,842/s', 'todo (CPU)', '97.77%'],
+          ] },
+          note: 'MacBook Pro con Apple M5 Max, 48 GB, macOS 27.2, ONNX Runtime 1.32 (CoreML con MLProgram y todas las unidades de cómputo). 20 iteraciones de calentamiento y 200 medidas a batch 1, formas estáticas. La tabla completa (18 configuraciones) está en el repo.' },
+        { heading: 'Lo que aprendí', list: [
+          'La cobertura decide todo: cuando CoreML toma el grafo completo, el transformer da 3.8× el throughput de la CPU; cuando el grafo se fragmenta (MobileNetV3, 19 particiones por hard-swish/SE), CoreML termina 2.8× más lento.',
+          'INT8 QDQ es un formato para la NPU de Qualcomm, no para CoreML: CoreML toma 1 de 65 nodos de la CNN cuantizada, así que corre en CPU con traspasos extra.',
+          'Activaciones de 8 bits le cuestan 3.06 puntos al transformer; con 16 bits (W8A16) recupera exactamente la precisión de FP32 y pesa 2.5× menos.',
+          'En CPU, INT8 mejora la latencia a batch 1 (1.4×) pero en la CNN pequeña reduce a la mitad el throughput a batch 16.',
+        ], images: [{ src: 'images/edgebench/report-devices.jpg', caption: 'Ficha del dispositivo: QNN y CUDA se saltan con instrucciones claras', wide: true }] },
+        { heading: 'Ingeniería', text: [
+          'Python 3.11+ tipado y modular, CLI instalable con pip, pruebas con pytest y ruff, CI en GitHub Actions sobre Ubuntu y macOS. Los modelos y los resultados crudos (JSON) viven en el repo, así cualquiera puede regenerar el reporte.',
+        ] },
+        { heading: 'Stack', chips: ['Python', 'ONNX Runtime', 'CoreML EP', 'QNN EP', 'NNAPI', 'PyTorch', 'Cuantización QDQ', 'Qualcomm AI Hub', 'GitHub Actions'] },
+      ],
+    },
+    {
+      id: 'helpdesk', group: 'ai', name: 'Offline IT Helpdesk', color: ['#065f46', '#10b981'],
+      title: 'Offline IT Helpdesk', type: 'Python · RAG · llama.cpp · ONNX · FastAPI · MIT',
+      headline: 'RAG 100% local: 84.4% de respuestas completas y 100% de preguntas fuera de tema rechazadas.',
+      intro: 'Un asistente de mesa de ayuda de TI que corre completamente en la máquina: busca en los runbooks internos con RAG híbrido (embeddings MiniLM en ONNX + BM25), redacta la respuesta con un LLM pequeño a través de llama.cpp u Ollama y cita la fuente. Ninguna pregunta ni dato de la empresa sale de la red.',
+      hero: [{ src: 'images/helpdesk/ui.jpg', caption: 'Interfaz web: respuesta citada a partir de los runbooks', wide: true }],
+      quote: 'El buscador encuentra la sección correcta casi siempre; el eslabón débil es el LLM de 1.5B. Así que medí ambos por separado.',
+      repo: 'offline-it-helpdesk',
+      sections: [
+        { heading: 'Qué hace', list: [
+          'Base de conocimiento de 15 runbooks de TI (VPN, MFA, contraseñas, BitLocker, impresoras, phishing…), divididos en secciones.',
+          'Búsqueda híbrida: MiniLM INT8 en ONNX + BM25, combinados con Reciprocal Rank Fusion. El tokenizador WordPiece está escrito en Python puro: no hace falta torch para usarlo.',
+          'Respuesta con citas [n] usando un LLM local (Qwen2.5 en GGUF) por la API compatible con OpenAI de llama.cpp u Ollama.',
+          'Rechaza lo que no está en la base y, si el LLM se niega pero la búsqueda está segura, devuelve el pasaje textual (respaldo extractivo).',
+          'Descargas fijadas por revisión y sha256, API FastAPI + interfaz web, y CLI `helpdesk`.',
+          'Suite de evaluación con 40 preguntas: 32 con respuesta en la base y 8 fuera de tema.',
+          'En Android corre por Termux con llama.cpp nativo.',
+        ] },
+        { heading: 'Medido en mi Mac', table: {
+          head: ['Configuración', 'Acierto top-1', 'Totalmente correcta', 'Cita el doc correcto', 'Fuera de tema rechazadas', 'Generación p50'],
+          rows: [
+            ['MiniLM-INT8 + Qwen2.5-1.5B (default)', '96.9%', '84.4%', '96.9%', '100%', '97 ms'],
+            ['MiniLM-INT8 + Qwen2.5-0.5B', '96.9%', '62.5%', '81.2%', '100%', '47 ms'],
+            ['MiniLM-INT8 + extractivo (sin LLM)', '96.9%', '96.9%', '100%', '100%', '< 1 ms'],
+            ['Embedder por hashing (sin modelo)', '75.0%', '68.8%', '89.7%', '25%', '< 1 ms'],
+          ] },
+          note: 'M5 Max, 48 GB, macOS 27.2, ONNX Runtime 1.32, llama.cpp con Metal, temperatura 0, top_k = 3. La recuperación tarda ~1 ms. Los ajustes se eligieron sobre este mismo set de preguntas, así que los números son indicativos.' },
+        { heading: 'Lo que aprendí', list: [
+          'La recuperación no es el cuello de botella: la sección correcta está en el top 3 el 100% de las veces. El LLM de 1.5B es el que a veces omite un dato o cita la sección vecina.',
+          'Los embeddings INT8 (23 MB) recuperan exactamente igual que los FP32 (90 MB) en esta base.',
+          'Los LLMs pequeños se niegan a responder preguntas que sí tienen respuesta: el respaldo extractivo eliminó todas las negativas falsas sin dejar pasar ninguna pregunta fuera de tema.',
+          'El modelo de 0.5B (tamaño tablet) es 1.3× más rápido por token pero pierde 22 puntos; en un CPU de teléfono, el modo extractivo es el default razonable.',
+          'Cuando el modelo no pone las citas, la interfaz muestra "fuentes consultadas" en lugar de inventarlas.',
+        ] },
+        { heading: 'Stack', chips: ['Python', 'ONNX Runtime', 'MiniLM', 'BM25', 'llama.cpp', 'Ollama', 'Qwen2.5', 'FastAPI', 'RAG'] },
+      ],
+    },
+    {
+      id: 'logsentinel', group: 'ai', name: 'LogSentinel', color: ['#7f1d1d', '#eb6834'],
+      title: 'LogSentinel', type: 'Python · Detección de anomalías · ONNX · SOC · MIT',
+      headline: 'F1 0.976 sobre 11.2 millones de líneas de logs HDFS; la versión INT8 pesa 10.6 KB.',
+      intro: 'Detección de anomalías en logs pensada para un SOC: parsea los 11.2 millones de líneas reales del dataset HDFS de Loghub, agrupa los eventos por bloque y un autoencoder exportado a ONNX marca las sesiones raras. Cada alerta llega con una explicación que un analista puede leer y con las líneas de log que la respaldan.',
+      hero: [{ src: 'images/logsentinel/dashboard.jpg', caption: 'Dashboard de alertas con severidad, explicación y evidencia', wide: true }],
+      quote: '"Falta: addStoredBlock … blockMap updated (visto 0×, típico 3×)": la firma real de una escritura HDFS que nunca terminó.',
+      repo: 'logsentinel',
+      sections: [
+        { heading: 'Qué hace', list: [
+          'Enmascara IPs, IDs y números, y extrae plantillas al estilo Drain (44 plantillas) a ~190 mil líneas por segundo.',
+          'Convierte cada bloque en un vector de conteo de eventos y lo puntúa con un autoencoder.',
+          'El autoencoder está escrito en NumPy y exportado a ONNX a mano, con todo el scoring dentro del grafo (log1p, estandarización, error por plantilla): cualquier ONNX Runtime lo corre sin Python extra.',
+          'Isolation Forest (vía skl2onnx) y regresión logística supervisada como referencias.',
+          'Split cronológico train/validación/test; el umbral se elige en validación y el test se usa una sola vez.',
+          'Guarda alertas y evidencia en SQLite; dashboard FastAPI y CLI `logsentinel`.',
+        ] },
+        { heading: 'Medido en mi Mac', table: {
+          head: ['Modelo', 'Etiquetas necesarias', 'Precision', 'Recall', 'F1', 'Tamaño'],
+          rows: [
+            ['Isolation Forest', 'ninguna', '0.364', '0.913', '0.521', '423 KB'],
+            ['Autoencoder (entrenado con todo)', 'ninguna', '0.385', '1.000', '0.556', '—'],
+            ['Autoencoder FP32 (periodo sano)', '"este periodo estuvo bien"', '0.955', '0.997', '0.976', '14.6 KB'],
+            ['Autoencoder INT8 (W8A8)', '″', '0.924', '0.997', '0.959', '10.6 KB'],
+            ['Autoencoder W8A16', '″', '0.955', '0.997', '0.976', '11.0 KB'],
+            ['Regresión logística (supervisada)', 'cada bloque etiquetado', '0.955', '0.992', '0.973', '—'],
+          ] },
+          note: 'Test cronológico: 115,013 bloques, 1,679 anómalos (1.46%). M5 Max, ONNX Runtime 1.32. Velocidad: parseo de 188–192 mil líneas/s, detección completa (parseo + scoring + SQLite) de 150–170 mil líneas/s, y el autoencoder puntúa ~17 millones de sesiones por segundo (0.007 ms a batch 1).' },
+        { heading: 'Lo que aprendí', list: [
+          'Saber cómo se ve lo "normal" importa más que el algoritmo: el mismo autoencoder pasa de F1 0.556 a 0.976 si se entrena solo con un periodo sano, y empata con un modelo supervisado sin necesitar etiquetas de anomalías.',
+          'Isolation Forest da 1.7 falsas alarmas por cada anomalía real: demasiado ruido para una cola de SOC.',
+          'Una trampa de cuantización: mi primer INT8 colapsó (F1 de validación 0.985 → 0.563) porque calibré con datos que incluían anomalías. Calibrar con sesiones normales, las mismas del entrenamiento, lo arregló.',
+          'Un piso de 0.1 en la desviación estándar (elegido en validación) evitó que una sola ocurrencia de una plantilla rara disparara el score a 279,836.',
+          'El parseo es el cuello de botella, no el modelo; y CoreML es más lento que la CPU en un modelo de 4 capas porque domina el costo de despacho.',
+        ] },
+        { heading: 'Stack', chips: ['Python', 'NumPy', 'ONNX', 'ONNX Runtime', 'scikit-learn', 'skl2onnx', 'SQLite', 'FastAPI', 'Loghub HDFS'] },
+      ],
+    },
+    {
+      id: 'triage', group: 'ai', name: 'IT Ticket Triage', color: ['#1e1b4b', '#8957e5'],
+      title: 'IT Ticket Triage', type: 'Python · PyTorch · Transformers · ONNX · ITIL · MIT',
+      headline: 'Prioridad ITIL con 79.3% de acierto vs 64.9% del baseline; INT8 de 21.8 MB en ~4 ms por ticket.',
+      intro: 'Clasifica tickets de TI en categoría y en prioridad ITIL (P1–P4) con un MiniLM afinado con dos cabezas y exportado a ONNX en FP32, INT8 y W8A16. Corre en CPU en unos 4 ms por ticket e incluye un dashboard con la cola priorizada y matrices de confusión.',
+      hero: [{ src: 'images/triage/dashboard.jpg', caption: 'Dashboard: cola priorizada, confianza y matrices de confusión', wide: true }],
+      quote: 'La categoría es un problema de palabras clave; la prioridad es un problema de entender el lenguaje: "el camión sale a las 2" o "todo el turno".',
+      link: { url: 'https://github.com/RobiiAragon/it-ticket-triage/releases/latest', label: 'Descargar modelos' },
+      repo: 'it-ticket-triage',
+      sections: [
+        { heading: 'Qué hace', list: [
+          '7 categorías (acceso, hardware, red, software, correo, impresión, seguridad) y prioridad calculada con la matriz impacto × urgencia de ITIL.',
+          'Dataset sintético generado con un LLM local y documentado, con un filtro de fuga: se descartaron 2,487 tickets que repetían frases de la pista o de la etiqueta, para que el modelo lea situaciones y no artefactos del generador.',
+          'Además se evalúa en 1,163 tickets externos con licencia pública, para medir qué tan bien generaliza fuera de dominio.',
+          'Baseline TF-IDF + regresión logística para saber si el transformer realmente gana.',
+          'Inferencia sin torch: tokenizador en Python puro + ONNX Runtime, con formas estáticas para los aceleradores.',
+          'API FastAPI, dashboard web y CLI `triage`; los modelos se publican en GitHub Releases.',
+        ] },
+        { heading: 'Medido en mi Mac', table: {
+          head: ['Modelo', 'EP', 'Categoría', 'Prioridad', 'Prioridad ±1', 'Externo (categoría)', 'p50', 'Tamaño'],
+          rows: [
+            ['TF-IDF + LogReg', 'sklearn', '99.2%', '64.9%', '94.4%', '42.7%', '0.39 ms', '—'],
+            ['MiniLM FP32', 'CPU', '99.0%', '79.3%', '97.2%', '51.5%', '4.57 ms', '86.2 MB'],
+            ['MiniLM INT8', 'CPU', '99.0%', '76.5%', '97.5%', '49.7%', '4.04 ms', '21.8 MB'],
+            ['MiniLM W8A16', 'CPU', '99.0%', '77.8%', '97.0%', '51.2%', '6.69 ms', '33.3 MB'],
+            ['MiniLM W8A16', 'CoreML', '99.0%', '78.0%', '97.0%', '51.3%', '26.70 ms', '33.3 MB'],
+          ] },
+          note: 'Test sintético de 396 tickets (estratificado, usado una vez) y 1,163 tickets externos. Latencia a batch 1 incluyendo tokenización. M5 Max, PyTorch con MPS para entrenar, ONNX Runtime 1.32 para inferencia.' },
+        { heading: 'Lo que aprendí', list: [
+          'En categoría, TF-IDF empata con el transformer; en prioridad, el transformer gana por 14.4 puntos.',
+          'Casi todos los errores de prioridad están a un nivel de distancia (97.2% dentro de ±1); P3 es la clase más difícil.',
+          'El número honesto es el de fuera de dominio: 51.5%. Parte es diferencia de taxonomía y parte es cobertura del generador; entrenar con fuentes mixtas es lo siguiente en el roadmap.',
+          'INT8 es el mejor default en CPU: 4× más chico y el más rápido, a cambio de 2.8 puntos de prioridad. W8A16 en CoreML es lento porque esos nodos QDQ están pensados para la NPU de Qualcomm.',
+        ] },
+        { heading: 'Stack', chips: ['Python', 'PyTorch', 'Transformers', 'MiniLM', 'ONNX Runtime', 'Cuantización INT8 / W8A16', 'scikit-learn', 'FastAPI', 'ITIL'] },
+      ],
+    },
+    {
+      id: 'quantlab', group: 'ai', name: 'Quant Lab', color: ['#0e7490', '#f59e0b'],
+      title: 'Quant Lab', type: 'Python · Cuantización · ONNX Runtime · CoreML · QNN · MIT',
+      headline: 'FP16 + CoreML 7.5–12× más rápido que FP32 en CPU; EfficientNet colapsa en INT8 y W8A16 lo rescata.',
+      intro: 'Un laboratorio de cuantización: compara FP32, FP16, INT8 dinámico, INT8 estático y W8A16 en ResNet-18, MobileNetV3-Large y EfficientNet-B0, sobre las 3,925 imágenes de validación de Imagenette. Mide precisión, coincidencia con FP32, latencia, tamaño y cuánto del grafo toma cada acelerador, en CPU, CoreML y Qualcomm QNN.',
+      hero: [{ src: 'images/quantlab/tradeoff.jpg', caption: 'Precisión vs latencia de cada modelo y precisión, en CPU y CoreML', wide: true }],
+      quote: 'Que un modelo sea "seguro para cuantizar" depende de la arquitectura y de la calibración, no solo de los bits.',
+      link: { url: 'https://robiiaragon.github.io/quant-lab/report.html', label: 'Ver reporte en vivo' },
+      repo: 'quant-lab',
+      sections: [
+        { heading: 'Qué hace', list: [
+          'Construye 15 modelos (3 arquitecturas × 5 precisiones) a partir de pesos de torchvision, publicados en GitHub Releases.',
+          'INT8 dinámico por canal, INT8 estático con calibración Percentile y W8A16 (activaciones de 16 bits, la receta de la NPU de Qualcomm).',
+          'Ablación de calibración (MinMax vs Percentile vs Entropy, por tensor vs por canal) en un split de desarrollo separado de la evaluación.',
+          'Reporta top-1 en 1000 clases, acierto en las 10 clases de Imagenette, coincidencia con FP32, latencia y cobertura del EP.',
+          'Notebook ejecutado, 4 gráficas y un reporte HTML en GitHub Pages; CLI `qlab`.',
+          'Usé torchvision (BSD) en lugar de YOLO porque Ultralytics es AGPL y no encaja en un repo MIT.',
+        ], images: [
+          { src: 'images/quantlab/accuracy_drop.jpg', caption: 'Cambio de precisión vs FP32 por modelo' },
+          { src: 'images/quantlab/latency.jpg', caption: 'Latencia por execution provider' },
+        ] },
+        { heading: 'Medido en mi Mac', table: {
+          head: ['Modelo', 'Precisión', 'Top-1', 'CPU p50', 'CoreML p50', 'Tamaño'],
+          rows: [
+            ['ResNet-18', 'FP32', '66.88%', '4.92 ms', '1.04 ms', '44.6 MB'],
+            ['ResNet-18', 'FP16', '66.93%', '4.88 ms', '0.41 ms', '22.3 MB'],
+            ['ResNet-18', 'INT8 estático', '67.57%', '1.55 ms', '3.12 ms', '11.3 MB'],
+            ['MobileNetV3-L', 'FP32', '74.34%', '1.95 ms', '5.74 ms', '20.9 MB'],
+            ['MobileNetV3-L', 'INT8 estático', '71.62%', '1.35 ms', '8.07 ms', '5.7 MB'],
+            ['EfficientNet-B0', 'FP32', '76.56%', '3.17 ms', '1.31 ms', '20.2 MB'],
+            ['EfficientNet-B0', 'FP16', '76.59%', '3.23 ms', '0.42 ms', '10.1 MB'],
+            ['EfficientNet-B0', 'INT8 dinámico', '0.00%', '14.80 ms', '36.01 ms', '5.4 MB'],
+            ['EfficientNet-B0', 'INT8 estático', '65.96%', '2.34 ms', '21.11 ms', '5.9 MB'],
+            ['EfficientNet-B0', 'W8A16', '75.97%', '7.24 ms', '22.17 ms', '5.9 MB'],
+          ] },
+          note: 'Las 3,925 imágenes de validación de Imagenette, batch 1. M5 Max, 48 GB, macOS 27.2, ONNX Runtime 1.32 (CoreML con MLProgram, forma estática). Top-1 es estricto en 1000 clases; restringido a las 10 clases de Imagenette, los modelos FP32 sacan 97.7–99.4%.' },
+        { heading: 'Lo que aprendí', list: [
+          'En Apple silicon, FP16 + CoreML gana cuando CoreML toma el grafo completo: 7.5–12× más rápido que FP32 en CPU, la mitad de tamaño y ≤ 0.3 puntos de diferencia.',
+          'INT8 pertenece a la CPU (y a la NPU de Qualcomm), no a CoreML: CoreML toma solo 10 de 148 nodos del ResNet cuantizado, y cada par Q/DQ se vuelve un traspaso.',
+          'La arquitectura decide: ResNet-18 no pierde nada, MobileNetV3 pierde 2.7 puntos y EfficientNet-B0 colapsa (convoluciones depthwise, squeeze-excitation y SiLU). W8A16 lo recupera a −0.6 puntos.',
+          'La calibración importa tanto como los bits: en EfficientNet, MinMax dio 33.7% y Percentile 65.0% en el split de desarrollo.',
+          'Encontré y corregí un bug propio antes de publicar: un ID de clase equivocado dejaba fuera 390 imágenes. Todos los números son de la corrida corregida.',
+        ] },
+        { heading: 'Stack', chips: ['Python', 'ONNX Runtime', 'CoreML EP', 'QNN EP', 'torchvision', 'Cuantización estática / dinámica', 'Matplotlib', 'Jupyter'] },
+      ],
+    },
   ];
+  const AI = PROJECTS.filter(p => p.group === 'ai');
 
   /* Repos de respaldo (si la API de GitHub no responde) */
   const REPOS_FALLBACK = [
+    ...AI.map(p => ({ name: p.repo, language: 'Python', description: p.headline })),
     { name: 'Forma', language: 'Swift', description: 'Estudio de escaneo 3D local para iPhone, iPad y Mac: LiDAR, fotogrametría y Gaussian Splatting.' },
     { name: 'NX-Port-Studio', language: 'Python', description: 'Ports nativos de Apple desde tu biblioteca de Switch, con firma Xcode, Joy-Con y LAN/LDN.', stargazers_count: 5 },
     { name: 'NX2-Port-Studio', language: 'C', description: 'Herramientas nativas experimentales de Switch 2 para Apple silicon.' },
@@ -305,7 +509,8 @@
     { id: 'resume',   name: 'CV_Jesus.pdf',    kind: 'doc',    x: 20, y: 63 },
     { id: 'repos',    name: 'GitHub Repos',    kind: 'gh',     x: 9,  y: 76 },
     { id: 'kind',     name: 'Stack.txt',       kind: 'txt',    x: 29, y: 78 },
-    ...PROJECTS.map(p => ({ id: p.id, name: p.name, kind: 'folder', x: p.x, y: p.y, color: p.color })),
+    ...PROJECTS.filter(p => !p.group).map(p => ({ id: p.id, name: p.name, kind: 'folder', x: p.x, y: p.y, color: p.color })),
+    { id: 'ai',       name: 'IA On-Device (5)', kind: 'folder', x: 68, y: 72, color: ['#0b3b60', '#2a78d6'] },
     { id: 'secret',   name: 'No mirar',        kind: 'trash',  x: 95, y: 86 },
   ];
 
@@ -321,6 +526,13 @@
       <span class="glyph">${p.glyph || '✦'}</span><span class="art-title">${esc(p.title)}</span><span class="art-tag">${esc(p.type.split('·')[0].trim())}</span></div>`;
   }
 
+  const isNum = c => /^[<≤~]?\s?[\d.,]+\s?(%|ms|KB|MB|\/s)?$/.test(c) || c === '—';
+  function tableHTML(t) {
+    const num = t.head.map((_, i) => t.rows.every(r => isNum(r[i])));
+    const cls = i => num[i] ? ' class="num"' : '';
+    return `<div class="tbl"><table><thead><tr>${t.head.map((h, i) => `<th${cls(i)}>${esc(h)}</th>`).join('')}</tr></thead>
+      <tbody>${t.rows.map(r => `<tr>${r.map((c, i) => `<td${cls(i)}>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  }
   function storyBody(p) {
     const hero = p.hero ? `<div class="pair n${p.hero.length}">${p.hero.map(fig).join('')}</div>` : artCover(p);
     const btns = [
@@ -345,6 +557,8 @@
                 ${(s.text || []).map(t => `<p>${esc(t)}</p>`).join('')}
                 ${s.list ? `<ul>${s.list.map(t => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
                 ${s.chips ? `<div class="chips">${s.chips.map(c => `<span class="chip">${esc(c)}</span>`).join('')}</div>` : ''}
+                ${s.table ? tableHTML(s.table) : ''}
+                ${s.note ? `<p class="note">${esc(s.note)}</p>` : ''}
               </div>
             </div>
             ${s.images ? `<div class="figs n${s.images.length}">${s.images.map(fig).join('')}</div>` : ''}
@@ -391,7 +605,7 @@
     ['OS', 'macOS · Apple silicon'], ['Host', 'Jesús Aragón · Software Engineer'],
     ['Uni', 'UTT · Ing. Entornos Virtuales y Negocios Digitales'], ['Uptime', '2023 → grad. 2027'],
     ['Shell', 'zsh · Xcode · Unity · VS Code'], ['Langs', 'TypeScript · Python · Swift · C# · C++'],
-    ['Stack', 'React · .NET · iOS SDK · Metal · Supabase'], ['AI/ML', 'Ollama · ComfyUI · Core ML · CUDA'],
+    ['Stack', 'React · .NET · iOS SDK · Metal · Supabase'], ['AI/ML', 'ONNX Runtime · Core ML · QNN · llama.cpp · PyTorch'],
     ['XR', 'Unity VR · LiDAR · Gaussian Splatting'], ['Locale', 'Tijuana, BC 🇲🇽 · ES / EN (B1)'],
   ];
   const fastfetch = () => {
@@ -432,7 +646,7 @@
       if (!p) return `open: no existe el proyecto '${esc(a)}'. Usa <span class="c">ls</span> para verlos.`;
       openWin(p.id); return `abriendo ${esc(p.id)}…`;
     },
-    skills: () => '<span class="k">lenguajes </span> TypeScript · Python · Swift · C# · C++ · PHP · Java · Kotlin · SQL\n<span class="k">frameworks</span> React · .NET · iOS SDK · SwiftUI · Unity · Laravel · Supabase\n<span class="k">apple     </span> ARKit · RealityKit · Metal · Core ML · Xcode\n<span class="k">ia        </span> Ollama · BionicGPT · ComfyUI · CUDA\n<span class="k">sistemas  </span> Git · Linux · CMake · Arduino · CCNA',
+    skills: () => '<span class="k">lenguajes </span> TypeScript · Python · Swift · C# · C++ · PHP · Java · Kotlin · SQL\n<span class="k">frameworks</span> React · .NET · iOS SDK · SwiftUI · Unity · Laravel · Supabase\n<span class="k">apple     </span> ARKit · RealityKit · Metal · Core ML · Xcode\n<span class="k">ia        </span> ONNX Runtime · CoreML · QNN · PyTorch · scikit-learn · llama.cpp · Ollama · CUDA\n<span class="k">sistemas  </span> Git · Linux · CMake · Arduino · CCNA',
     contact: () => `<span class="k">email </span> <a href="mailto:${ME.email}">${ME.email}</a>\n<span class="k">github</span> <a href="https://github.com/${ME.user}" target="_blank" rel="noopener">github.com/${ME.user}</a>\n<span class="k">x     </span> <a href="https://x.com/${ME.x}" target="_blank" rel="noopener">@${ME.x}</a>`,
     repos: () => { openWin('repos'); return 'abriendo github.com/' + ME.user + '…'; },
     cv: () => { openWin('resume'); return 'abriendo CV_Jesus.pdf…'; },
@@ -569,10 +783,37 @@
             <div class="about-card"><h3>🥽 Entornos virtuales</h3><p>Unity, C# y VR. Fotogrametría para traer objetos reales al mundo 3D.</p></div>
             <div class="about-card"><h3>📈 Negocios digitales</h3><p>SaaS, automatización y traducción de lo técnico a lo que el negocio necesita.</p></div>
             <div class="about-card"><h3>🍎 Apple dev</h3><p>Swift, SwiftUI y Xcode: desde utilidades pequeñas hasta ports nativos.</p></div>
-            <div class="about-card"><h3>🧠 IA local</h3><p>Ollama, ComfyUI y CUDA para correr modelos sin depender de la nube.</p></div>
+            <div class="about-card"><h3>🧠 IA on-device</h3><p>ONNX Runtime, CoreML y Qualcomm QNN, cuantización INT8/W8A16, RAG y LLMs locales sin depender de la nube. <button class="lnk-inline" data-open="ai">Ver los 5 repos →</button></p></div>
           </div>
         </div>
       </div>` },
+    ai: { title: 'IA On-Device', w: 900, big: true, body: () => `
+      <article class="story ai-hub">
+        <header class="story-head">
+          <p class="eyebrow">Serie de 5 repos públicos · Python · ONNX Runtime · MIT</p>
+          <h2>IA On-Device</h2>
+          <p class="intro">Cinco proyectos de Machine Learning que corren en el dispositivo, sin nube: del benchmark de aceleradores a casos reales de TI (mesa de ayuda, logs de seguridad, tickets) y un laboratorio de cuantización. Todos usan ONNX Runtime con detección de execution provider: CPU siempre, CoreML en mi Mac, Qualcomm QNN en Snapdragon, NNAPI en Android y CUDA en NVIDIA.</p>
+        </header>
+        <section class="story-section">
+          <div class="row"><h3>Los proyectos</h3><div class="ai-cards">${AI.map((p, i) => `
+            <button class="ai-card" data-open="${p.id}" style="--a:${p.color[0]};--b:${p.color[1]}">
+              <span class="n">0${i + 1}</span><b>${esc(p.title)}</b><span class="t">${esc(p.type)}</span><span class="h">${esc(p.headline)}</span><span class="go">Ver detalle →</span>
+            </button>`).join('')}</div></div>
+        </section>
+        <section class="story-section">
+          <div class="row"><h3>Lo que tienen en común</h3><div><ul>
+            <li>Python 3.11+ tipado y modular, licencia MIT y CLI instalable con <code>pip install -e ".[dev]"</code>.</li>
+            <li>Pruebas con pytest y ruff, y CI en GitHub Actions sobre Ubuntu y macOS: todo en verde antes de publicar.</li>
+            <li>Modelos pequeños y datos públicos con licencia clara (UCI, Loghub HDFS, Imagenette, datasets de Hugging Face).</li>
+            <li>Cuantización INT8 y W8A16 en formato QDQ, la que ejecuta la NPU Hexagon de Qualcomm.</li>
+            <li>Un script para Mac y otro para Android (Termux en una Galaxy Tab S9 Ultra con Snapdragon 8 Gen 2).</li>
+            <li>README en inglés y español con diagrama, quickstart y resultados medidos en mi MacBook Pro M5 Max, con el hardware anotado. Sin números inventados.</li>
+          </ul></div></div>
+        </section>
+        <section class="story-section">
+          <div class="row"><h3>Siguiente</h3><div><p>Correr los mismos scripts en el Snapdragon 8 Gen 2 de la tablet y perfilar los modelos en dispositivos reales con Qualcomm AI Hub, para comparar CPU, NNAPI y la NPU lado a lado con los números de la Mac.</p></div></div>
+        </section>
+      </article>` },
     projects: { title: 'Proyectos', w: 560, body: () => `
       <div class="finder">${PROJECTS.map(p => `
         <button class="finder-item" data-open="${p.id}">${folderSVG(p.color)}<span>${esc(p.name)}</span></button>`).join('')}
@@ -588,7 +829,7 @@
       <div class="txt">
         <p><b>// lenguajes</b><br>TypeScript, Python, Swift, C#, C++, PHP, JavaScript, Java, SQL, HTML5, CSS3</p>
         <p><b>// web, móvil y motores</b><br>React, .NET, iOS SDK / Swift, Unity, Laravel, Supabase, REST APIs</p>
-        <p><b>// ia y cómputo</b><br>Machine Learning, LLMs locales (Ollama, BionicGPT), ComfyUI, APIs de IA generativa, NVIDIA CUDA / Tensor</p>
+        <p><b>// ia y cómputo</b><br>ONNX Runtime (CPU, CoreML, Qualcomm QNN, NNAPI, CUDA), cuantización INT8 / W8A16 (QDQ), PyTorch, Transformers, scikit-learn, RAG (MiniLM + BM25), LLMs locales (llama.cpp, Ollama), detección de anomalías, FastAPI, pytest + GitHub Actions</p>
         <p><b>// sistemas y redes</b><br>Git, GitHub, Linux (Ubuntu, Termux), Windows, CMake, Arduino (C++), CCNA</p>
         <p><b>// certificaciones</b><br>CCNA Essentials (2024) · NDG Linux Essentials (2022) · C++ Essentials (2021)</p>
       </div>` },
