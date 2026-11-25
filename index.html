@@ -68,10 +68,17 @@
     <button class="dock-app" data-open="resume"   title="CV"><span style="--c:#ffffff; color:#0b3b60" class="sm">CV</span></button>
     <i class="dock-sep"></i>
     <button class="dock-app" id="theme" title="Modo oscuro"><span style="--c:#0f1c2b" id="theme-ico">☾</span></button>
+    <button class="dock-app" id="lang" title="View in English"><span style="--c:#0fa39a" class="sm" id="lang-ico">EN</span></button>
     <button class="dock-app open-me" data-open="secret" title="ábreme"><span style="--c:#1e40af">🎮</span></button>
   </nav>
 
+  <script src="i18n-en.js"></script>
   <script>
+  /* Idioma de la interfaz: 'es' (por defecto) o 'en'. tr(es, en) elige el texto. */
+  let UI_LANG = 'es';
+  try { UI_LANG = localStorage.getItem('lang') === 'en' ? 'en' : 'es'; } catch {}
+  const tr = (es, en) => UI_LANG === 'en' ? en : es;
+
   /* =========================================================
      EDITA TU CONTENIDO AQUÍ
      - Cada proyecto se vuelve una carpeta en el escritorio.
@@ -622,7 +629,7 @@
         reposCache.sort((a, b) => b.stargazers_count - a.stargazers_count || new Date(b.pushed_at) - new Date(a.pushed_at));
       }
       el.querySelector('.repo-grid').innerHTML = reposCache.map(repoCard).join('');
-      el.querySelector('.count').textContent = `${reposCache.length} repos públicos · en vivo desde GitHub`;
+      el.querySelector('.count').textContent = tr(`${reposCache.length} repos públicos · en vivo desde GitHub`, `${reposCache.length} public repos · live from GitHub`);
     } catch {
       el.querySelector('.count').textContent = 'Selección destacada';
     }
@@ -667,44 +674,44 @@
       ['open &lt;proyecto&gt;', 'abre la ventana del proyecto'], ['cat &lt;proyecto&gt;', 'resumen en texto'],
       ['skills', 'mi stack'], ['contact', 'cómo contactarme'], ['repos · cv', 'abre esas ventanas'],
       ['theme dark|light', 'cambia el modo'], ['history · date · pwd · echo', 'lo clásico'], ['clear · exit', 'limpiar · cerrar'],
-    ].map(([c, d]) => `<span class="c">${c.padEnd(28, ' ')}</span><span class="muted">${d}</span>`).join('\n')
+    ].map(([c, d]) => `<span class="c">${c + ' '.repeat(Math.max(1, 28 - c.replace(/&lt;|&gt;/g, '<').length))}</span><span class="muted">${d}</span>`).join('\n')
       + '\n<span class="muted">tips: ↑/↓ historial · Tab autocompleta · Ctrl+L limpia</span>',
     whoami: () => 'Jesús Aragón — Software Engineer | Full-Stack SaaS, AI/ML, Swift &amp; Unity',
     fastfetch,
     ls: () => PROJECTS.map(projLink).join('  '),
     cat: a => {
-      if (!a) return 'uso: cat &lt;proyecto&gt;  (prueba <span class="c">ls</span>)';
+      if (!a) return tr('uso: cat &lt;proyecto&gt;  (prueba <span class="c">ls</span>)', 'usage: cat &lt;project&gt;  (try <span class="c">ls</span>)');
       const p = findProject(a);
-      if (!p) return `cat: ${esc(a)}: no existe ese proyecto`;
-      return `<span class="k">${esc(p.title)}</span>  <span class="muted">${esc(p.type)}</span>\n${esc(p.intro)}\n<span class="muted">→</span> ${projLink(p)} <span class="muted">para ver más</span>`;
+      if (!p) return `cat: ${esc(a)}: ${tr('no existe ese proyecto', 'no such project')}`;
+      return `<span class="k">${esc(p.title)}</span>  <span class="muted">${esc(p.type)}</span>\n${esc(p.intro)}\n<span class="muted">→</span> ${projLink(p)} <span class="muted">${tr('para ver más', 'to see more')}</span>`;
     },
     open: a => {
-      if (!a) return 'uso: open &lt;proyecto&gt;  (prueba <span class="c">ls</span>)';
+      if (!a) return tr('uso: open &lt;proyecto&gt;  (prueba <span class="c">ls</span>)', 'usage: open &lt;project&gt;  (try <span class="c">ls</span>)');
       const p = findProject(a) || (WINDOWS[a] && { id: a });
-      if (!p) return `open: no existe el proyecto '${esc(a)}'. Usa <span class="c">ls</span> para verlos.`;
-      openWin(p.id); return `abriendo ${esc(p.id)}…`;
+      if (!p) return tr(`open: no existe el proyecto '${esc(a)}'. Usa <span class="c">ls</span> para verlos.`, `open: no project named '${esc(a)}'. Use <span class="c">ls</span> to list them.`);
+      openWin(p.id); return `${tr('abriendo', 'opening')} ${esc(p.id)}…`;
     },
-    skills: () => '<span class="k">lenguajes </span> TypeScript · Python · Swift · C# · C++ · PHP · Java · Kotlin · SQL\n<span class="k">frameworks</span> React · .NET · iOS SDK · SwiftUI · Unity · Laravel · Supabase\n<span class="k">apple     </span> ARKit · RealityKit · Metal · Core ML · Xcode\n<span class="k">ia        </span> ONNX Runtime · CoreML · QNN · PyTorch · scikit-learn · llama.cpp · Ollama · CUDA\n<span class="k">sistemas  </span> Git · Linux · CMake · Arduino · CCNA',
+    skills: () => tr('<span class="k">lenguajes </span>', '<span class="k">languages </span>') + ' TypeScript · Python · Swift · C# · C++ · PHP · Java · Kotlin · SQL\n<span class="k">frameworks</span> React · .NET · iOS SDK · SwiftUI · Unity · Laravel · Supabase\n<span class="k">apple     </span> ARKit · RealityKit · Metal · Core ML · Xcode\n' + tr('<span class="k">ia        </span>', '<span class="k">ai        </span>') + ' ONNX Runtime · CoreML · QNN · PyTorch · scikit-learn · llama.cpp · Ollama · CUDA\n' + tr('<span class="k">sistemas  </span>', '<span class="k">systems   </span>') + ' Git · Linux · CMake · Arduino · CCNA',
     contact: () => `<span class="k">email </span> <a href="mailto:${ME.email}">${ME.email}</a>\n<span class="k">github</span> <a href="https://github.com/${ME.user}" target="_blank" rel="noopener">github.com/${ME.user}</a>\n<span class="k">x     </span> <a href="https://x.com/${ME.x}" target="_blank" rel="noopener">@${ME.x}</a>`,
-    repos: () => { openWin('repos'); return 'abriendo github.com/' + ME.user + '…'; },
-    cv: () => { openWin('resume'); return 'abriendo CV_Jesus.pdf…'; },
+    repos: () => { openWin('repos'); return tr('abriendo', 'opening') + ' github.com/' + ME.user + '…'; },
+    cv: () => { openWin('resume'); return tr('abriendo', 'opening') + ' CV_Jesus.pdf…'; },
     theme: a => {
       const want = a === 'dark' ? true : a === 'light' ? false : !document.body.classList.contains('dark');
       if (document.body.classList.contains('dark') !== want) document.getElementById('theme').click();
-      return `modo ${want ? 'oscuro 🌙' : 'claro ☀️'}`;
+      return tr(`modo ${want ? 'oscuro 🌙' : 'claro ☀️'}`, `${want ? 'dark 🌙' : 'light ☀️'} mode`);
     },
-    history: () => termHistory.map((h, i) => `<span class="muted">${String(i + 1).padStart(3, ' ')}</span>  ${esc(h)}`).join('\n') || '(vacío)',
-    date: () => new Date().toLocaleString('es-MX', { dateStyle: 'full', timeStyle: 'short' }),
+    history: () => termHistory.map((h, i) => `<span class="muted">${String(i + 1).padStart(3, ' ')}</span>  ${esc(h)}`).join('\n') || tr('(vacío)', '(empty)'),
+    date: () => new Date().toLocaleString(tr('es-MX', 'en-US'), { dateStyle: 'full', timeStyle: 'short' }),
     pwd: () => '/Users/jesus/portfolio',
-    cd: a => a && a !== '~' && a !== '.' ? `cd: aquí no hay carpetas reales 😅 prueba <span class="c">open ${esc(a)}</span>` : '',
+    cd: a => a && a !== '~' && a !== '.' ? tr(`cd: aquí no hay carpetas reales 😅 prueba <span class="c">open ${esc(a)}</span>`, `cd: there are no real folders here 😅 try <span class="c">open ${esc(a)}</span>`) : '',
     echo: (a, rest) => esc(rest),
-    sudo: () => 'buen intento 😏 este Mac es mío',
-    exit: (a, r, ctx) => { setTimeout(() => ctx.win.querySelector('.close').click(), 250); return 'logout\n[Proceso completado]'; },
+    sudo: () => tr('buen intento 😏 este Mac es mío', 'nice try 😏 this Mac is mine'),
+    exit: (a, r, ctx) => { setTimeout(() => ctx.win.querySelector('.close').click(), 250); return 'logout\n' + tr('[Proceso completado]', '[Process completed]'); },
     rm: (a, rest, ctx) => {
-      if (!/-rf?\s+\/?$|-rf \//.test(rest)) return 'rm: mejor no borremos nada 🙃';
+      if (!/-rf?\s+\/?$|-rf \//.test(rest)) return tr('rm: mejor no borremos nada 🙃', "rm: let's not delete anything 🙃");
       const files = ['/System/Library', '/Applications/Xcode.app', '/Users/jesus/Forma', '/Users/jesus/NX-Port-Studio', '/usr/bin', '/portfolio/index.html'];
       files.forEach((f, i) => setTimeout(() => ctx.print(`<span style="color:#f85149">removing</span> ${f}…`), 220 * (i + 1)));
-      setTimeout(() => ctx.print('<span class="p">jk 😅 no se borró nada. Respira.</span>'), 220 * (files.length + 2));
+      setTimeout(() => ctx.print(`<span class="p">${tr('jk 😅 no se borró nada. Respira.', 'jk 😅 nothing was deleted. Breathe.')}</span>`), 220 * (files.length + 2));
       return '';
     },
     matrix: (a, r, ctx) => { matrixRain(ctx.win); return '<span class="p">wake up, Neo…</span>'; },
@@ -766,7 +773,7 @@
     if (CMDS[cmd]) res = CMDS[cmd](arg, cmd === 'echo' ? rest : args.join(' ').toLowerCase(), { win, print });
     else {
       const best = ALL.map(c => [c, lev(cmd, c)]).sort((a, b) => a[1] - b[1])[0];
-      res = `zsh: command not found: ${esc(cmd)}` + (best[1] <= 2 ? `\n¿quisiste decir <button class="c lnk" data-run="${best[0]}">${best[0]}</button>?` : '');
+      res = `zsh: command not found: ${esc(cmd)}` + (best[1] <= 2 ? `\n${tr('¿quisiste decir', 'did you mean')} <button class="c lnk" data-run="${best[0]}">${best[0]}</button>?` : '');
     }
     if (res) print(res);
     body.scrollTop = body.scrollHeight;
@@ -1131,10 +1138,14 @@
 
   /* ---------- Letras de "portafolio." crecen cerca del mouse ---------- */
   (() => {
-    const h1 = document.querySelector('.welcome h1'), word = h1.textContent;
-    h1.setAttribute('aria-label', word);
-    h1.innerHTML = [...word].map(ch => `<span class="ltr" aria-hidden="true">${ch}</span>`).join('');
-    const letters = [...h1.querySelectorAll('.ltr')];
+    const h1 = document.querySelector('.welcome h1');
+    let letters = [];
+    window.setWelcomeWord = word => {
+      h1.setAttribute('aria-label', word);
+      h1.innerHTML = [...word].map(ch => `<span class="ltr" aria-hidden="true">${ch}</span>`).join('');
+      letters = [...h1.querySelectorAll('.ltr')];
+    };
+    setWelcomeWord(tr('portafolio.', 'portfolio.'));
     h1.addEventListener('pointermove', e => letters.forEach(l => {
       const r = l.getBoundingClientRect(), t = Math.max(0, 1 - Math.abs(e.clientX - (r.left + r.width / 2)) / 160), ease = t * t * (3 - 2 * t);
       l.style.transform = `translateY(${-ease * 6}px) scale(${1 + ease * .45})`;
@@ -1166,7 +1177,7 @@
     const set = on => {
       document.body.classList.toggle('dark', on);
       ico.textContent = on ? '☀' : '☾';
-      btn.title = on ? 'Modo claro' : 'Modo oscuro';
+      btn.title = on ? tr('Modo claro', 'Light mode') : tr('Modo oscuro', 'Dark mode');
       ico.style.setProperty('--c', on ? '#f59e0b' : '#0f1c2b');
     };
     let saved = null;
@@ -1180,9 +1191,71 @@
 
   /* ---------- Reloj + nota ---------- */
   const clock = document.getElementById('clock');
-  const tick = () => clock.textContent = new Date().toLocaleString('es-MX', isMobile() ? { hour: 'numeric', minute: '2-digit' } : { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+  const tick = () => clock.textContent = new Date().toLocaleString(tr('es-MX', 'en-US'), isMobile() ? { hour: 'numeric', minute: '2-digit' } : { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
   tick(); setInterval(tick, 15000);
   makeDraggable(document.getElementById('sticky'), document.getElementById('sticky'), {});
+
+  /* ---------- Idioma ES / EN ----------
+     El contenido se escribe en español; i18n-en.js traduce cada texto visible
+     (y los atributos title/aria-label/alt/placeholder) cuando el idioma es inglés,
+     incluidas las ventanas que se abren después. */
+  (() => {
+    const DICT = window.I18N_EN || {};
+    const ATTRS = ['title', 'aria-label', 'alt', 'placeholder'];
+    const SKIP = 'script, style, textarea, .sparkle-layer, .welcome h1, #theme, #lang';
+    const seen = new WeakMap();                       // nodo de texto -> { es, en }
+    const swap = (orig, key) => UI_LANG === 'en' && DICT[key] ? orig.replace(key, DICT[key]) : orig;
+
+    function text(node) {
+      if (node.parentElement?.closest(SKIP)) return;
+      let rec = seen.get(node);
+      const cur = node.nodeValue;
+      if (!rec || (cur !== rec.es && cur !== rec.en)) { rec = { es: cur }; seen.set(node, rec); }
+      const v = swap(rec.es, rec.es.trim());
+      rec.en = v;
+      if (cur !== v) node.nodeValue = v;
+    }
+    function attrs(el) {
+      if (el.closest(SKIP)) return;
+      ATTRS.forEach(a => {
+        if (!el.hasAttribute(a)) return;
+        const k = 'data-es-' + a;
+        if (!el.hasAttribute(k)) el.setAttribute(k, el.getAttribute(a));
+        const es = el.getAttribute(k), v = swap(es, es.trim());
+        if (el.getAttribute(a) !== v) el.setAttribute(a, v);
+      });
+    }
+    function apply(root) {
+      if (root.nodeType === 3) return text(root);
+      if (root.nodeType !== 1) return;
+      attrs(root);
+      root.querySelectorAll('[' + ATTRS.join('],[') + ']').forEach(attrs);
+      const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      for (let n; (n = w.nextNode());) text(n);
+    }
+    new MutationObserver(muts => {
+      if (UI_LANG !== 'en') return;
+      muts.forEach(m => { if (!m.target.closest?.('.sparkle-layer')) m.addedNodes.forEach(apply); });
+    }).observe(document.body, { childList: true, subtree: true });
+
+    const btn = document.getElementById('lang'), ico = document.getElementById('lang-ico');
+    function setLang(lang) {
+      UI_LANG = lang;
+      document.documentElement.lang = lang;
+      document.title = tr('Jesús Aragón — Portafolio', 'Jesús Aragón — Portfolio');
+      ico.textContent = tr('EN', 'ES');
+      btn.title = tr('View in English', 'Ver en español');
+      btn.setAttribute('aria-label', btn.title);
+      const theme = document.getElementById('theme');
+      theme.title = document.body.classList.contains('dark') ? tr('Modo claro', 'Light mode') : tr('Modo oscuro', 'Dark mode');
+      setWelcomeWord(tr('portafolio.', 'portfolio.'));
+      tick();
+      apply(document.body);
+      try { localStorage.setItem('lang', lang); } catch {}
+    }
+    btn.addEventListener('click', () => setLang(UI_LANG === 'en' ? 'es' : 'en'));
+    setLang(UI_LANG);
+  })();
   </script>
 </body>
 </html>
