@@ -38,6 +38,7 @@
       <strong>Pendientes:</strong>
       <ul>
         <li class="done">Compilar NX Port Studio RC8</li>
+        <li class="done">Que Dex corra un modelo de 35B en mi Mac</li>
         <li>Escanear algo bonito con Forma</li>
         <li class="done">Ganarle a mi bot de Clash Royale</li>
         <li>Graduarme de la UTT (2027) 🎓</li>
@@ -155,6 +156,42 @@
         ] },
         { heading: 'Nota', text: ['Es un showcase de portafolio: el código no es público porque automatizar un juego en línea de terceros va contra sus términos de servicio. Sin relación con Supercell.'] },
         { heading: 'Stack', chips: ['Swift', 'SwiftUI', 'ScreenCaptureKit', 'Node.js 22', 'ONNX Runtime', 'C', 'ARM64'] },
+      ],
+    },
+    {
+      id: 'dex', name: 'Dex (Agente IA local)', x: 68, y: 32, color: ['#111827', '#6366f1'], glyph: '◎',
+      title: 'Dex-Harness', type: 'macOS · Rust · Tauri 2 · MLX · GGUF · Open source',
+      headline: 'Agente de IA para Mac que corre todo en local: chat, imagen, voz, música y 3D, sin nube.',
+      intro: 'Un agente de IA autónomo para Apple silicon, escrito en Rust, con CLI (dex) y app de escritorio (Dex.app). Corre sus propios modelos locales (MLX y GGUF) sin depender de LM Studio, Ollama ni de la nube, y elige qué modelos cargar según la RAM de la Mac.',
+      hero: [{ src: 'images/dex/agent.jpg', caption: 'El agente contesta en el idioma del usuario con un modelo de 35B corriendo en la Mac', wide: true }],
+      repo: 'Dex-Harness',
+      sections: [
+        { heading: 'Qué hace', list: [
+          'Agente con herramientas (archivos, shell, web, memoria) y modos Autopilot, Safe y Plan con aprobación de acciones.',
+          'Runtime propio: levanta MLX o llama.cpp como sidecar, elige el mejor modelo que cabe en la RAM y lo recarga solo si se descargó.',
+          'Gestor de memoria: si un modelo nuevo no cabe, descarga primero el que lleva más tiempo sin usarse. Al cerrar la app no quedan procesos huérfanos.',
+          'Media Studio: imágenes con Z-Image Turbo o FLUX en MLX, escalado y conversión en Rust puro.',
+          'Audio: voz (TTS y clonación), transcripción en español y música o efectos con MusicGen.',
+          '3D & Game Studio: texto o imagen a 3D (.glb) con Shap-E, visor WebGL2 propio y exportación a Blender y Unity.',
+          'Instalación de 1 clic: cada "no instalado" trae su botón para instalar el runtime que falta.',
+        ], images: [
+          { src: 'images/dex/media_studio.jpg', caption: 'Media Studio: Z-Image Turbo en 4-bit, generado en la Mac', wide: true },
+          { src: 'images/dex/3d_game_studio.jpg', caption: 'Texto a 3D: una silla de 40k triángulos con color por vértice', wide: true },
+        ] },
+        { heading: 'Medido en mi Mac', table: {
+          head: ['Prueba', 'Modelo', 'Tiempo'],
+          rows: [
+            ['Respuesta del agente', 'Qwen3.5 35B-A3B (MLX 4-bit, cargado automático)', '10.1 s'],
+            ['Imagen 1024×1024', 'Z-Image Turbo 4-bit, 8 pasos', '17.9 s'],
+            ['Voz (TTS)', 'Qwen3-TTS 0.6B 8-bit', '4.0 s'],
+            ['Música', 'MusicGen stereo-large (fp16)', '12.3 s'],
+            ['Texto a 3D', 'Shap-E, 40,000 triángulos', '10.2 s'],
+          ] },
+          note: 'Recorrido de QA real de Dex.app lanzado como app empaquetada, en un MacBook Pro con Apple M5 Max y 48 GB. Cero errores de JavaScript y cero procesos huérfanos al cerrar.' },
+        { heading: 'Ingeniería', text: [
+          'Workspace de Rust con crates separados (core, llm, tools, mcp, modelos, media, audio, 3D, extensiones, CLI y escritorio) sobre tokio. Cero unwrap() en producción, errores tipados con thiserror, timeout en cada llamada externa y clippy con -D warnings. La app de escritorio es Tauri 2 con WKWebView, y las extensiones MCP se cargan bajo demanda.',
+        ], images: [{ src: 'images/dex/models_hub.jpg', caption: 'Models Hub: modelos locales, runtimes y estado de cada uno', wide: true }] },
+        { heading: 'Stack', chips: ['Rust', 'tokio', 'Tauri 2', 'MLX', 'llama.cpp', 'MCP', 'Python', 'WebGL2', 'Blender', 'Unity'] },
       ],
     },
     {
@@ -495,6 +532,7 @@
   /* Repos de respaldo (si la API de GitHub no responde) */
   const REPOS_FALLBACK = [
     ...AI.map(p => ({ name: p.repo, language: 'Python', description: p.headline })),
+    { name: 'Dex-Harness', language: 'Rust', description: 'Agente de IA para Mac que corre todo en local: chat, imagen, voz, música y 3D.' },
     { name: 'Forma', language: 'Swift', description: 'Estudio de escaneo 3D local para iPhone, iPad y Mac: LiDAR, fotogrametría y Gaussian Splatting.' },
     { name: 'NX-Port-Studio', language: 'Python', description: 'Ports nativos de Apple desde tu biblioteca de Switch, con firma Xcode, Joy-Con y LAN/LDN.', stargazers_count: 5 },
     { name: 'NX2-Port-Studio', language: 'C', description: 'Herramientas nativas experimentales de Switch 2 para Apple silicon.' },
@@ -516,7 +554,7 @@
 
   /* ---------- Helpers ---------- */
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const LANG = { Python:'#3572A5', Java:'#b07219', PHP:'#4F5D95', 'C#':'#178600', Swift:'#F05138', TypeScript:'#3178c6', JavaScript:'#f1e05a', 'C++':'#f34b7d', C:'#555555', HTML:'#e34c26', CSS:'#563d7c', ShaderLab:'#222c37' };
+  const LANG = { Python:'#3572A5', Java:'#b07219', PHP:'#4F5D95', 'C#':'#178600', Swift:'#F05138', TypeScript:'#3178c6', JavaScript:'#f1e05a', 'C++':'#f34b7d', C:'#555555', HTML:'#e34c26', CSS:'#563d7c', ShaderLab:'#222c37', Rust:'#dea584' };
 
   function fig(im) {
     return `<figure class="${im.wide ? 'wide' : ''}${im.phone ? ' phone' : ''}"><img src="${esc(im.src)}" alt="${esc(im.caption)}" loading="lazy"><figcaption>${esc(im.caption)}</figcaption></figure>`;
@@ -783,7 +821,7 @@
             <div class="about-card"><h3>🥽 Entornos virtuales</h3><p>Unity, C# y VR. Fotogrametría para traer objetos reales al mundo 3D.</p></div>
             <div class="about-card"><h3>📈 Negocios digitales</h3><p>SaaS, automatización y traducción de lo técnico a lo que el negocio necesita.</p></div>
             <div class="about-card"><h3>🍎 Apple dev</h3><p>Swift, SwiftUI y Xcode: desde utilidades pequeñas hasta ports nativos.</p></div>
-            <div class="about-card"><h3>🧠 IA on-device</h3><p>ONNX Runtime, CoreML y Qualcomm QNN, cuantización INT8/W8A16, RAG y LLMs locales sin depender de la nube. <button class="lnk-inline" data-open="ai">Ver los 5 repos →</button></p></div>
+            <div class="about-card"><h3>🧠 IA on-device</h3><p>ONNX Runtime, CoreML y Qualcomm QNN, cuantización INT8/W8A16, RAG y LLMs locales sin depender de la nube, como en <button class="lnk-inline" data-open="dex">Dex</button>. <button class="lnk-inline" data-open="ai">Ver los 5 repos →</button></p></div>
           </div>
         </div>
       </div>` },
@@ -827,9 +865,9 @@
     terminal: { title: 'jesus — -zsh — 80×24', w: 760, cls: 'term', body: termBody, after: termBoot },
     kind: { title: 'Stack.txt', w: 560, body: `
       <div class="txt">
-        <p><b>// lenguajes</b><br>TypeScript, Python, Swift, C#, C++, PHP, JavaScript, Java, SQL, HTML5, CSS3</p>
+        <p><b>// lenguajes</b><br>TypeScript, Python, Swift, Rust, C#, C++, PHP, JavaScript, Java, SQL, HTML5, CSS3</p>
         <p><b>// web, móvil y motores</b><br>React, .NET, iOS SDK / Swift, Unity, Laravel, Supabase, REST APIs</p>
-        <p><b>// ia y cómputo</b><br>ONNX Runtime (CPU, CoreML, Qualcomm QNN, NNAPI, CUDA), cuantización INT8 / W8A16 (QDQ), PyTorch, Transformers, scikit-learn, RAG (MiniLM + BM25), LLMs locales (llama.cpp, Ollama), detección de anomalías, FastAPI, pytest + GitHub Actions</p>
+        <p><b>// ia y cómputo</b><br>ONNX Runtime (CPU, CoreML, Qualcomm QNN, NNAPI, CUDA), cuantización INT8 / W8A16 (QDQ), PyTorch, Transformers, scikit-learn, RAG (MiniLM + BM25), LLMs locales (MLX, llama.cpp, Ollama), detección de anomalías, FastAPI, pytest + GitHub Actions</p>
         <p><b>// sistemas y redes</b><br>Git, GitHub, Linux (Ubuntu, Termux), Windows, CMake, Arduino (C++), CCNA</p>
         <p><b>// certificaciones</b><br>CCNA Essentials (2024) · NDG Linux Essentials (2022) · C++ Essentials (2021)</p>
       </div>` },
