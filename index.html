@@ -1215,7 +1215,14 @@
       rec.en = v;
       if (cur !== v) node.nodeValue = v;
     }
+    const IMG = window.I18N_EN_IMG || {};
+    function img(el) {
+      if (!el.hasAttribute('data-es-src')) el.setAttribute('data-es-src', el.getAttribute('src'));
+      const es = el.getAttribute('data-es-src'), v = UI_LANG === 'en' && IMG[es] ? IMG[es] : es;
+      if (el.getAttribute('src') !== v) el.setAttribute('src', v);
+    }
     function attrs(el) {
+      if (el.tagName === 'IMG' && el.hasAttribute('src')) img(el);
       if (el.closest(SKIP)) return;
       ATTRS.forEach(a => {
         if (!el.hasAttribute(a)) return;
@@ -1229,7 +1236,7 @@
       if (root.nodeType === 3) return text(root);
       if (root.nodeType !== 1) return;
       attrs(root);
-      root.querySelectorAll('[' + ATTRS.join('],[') + ']').forEach(attrs);
+      root.querySelectorAll('[' + ATTRS.join('],[') + '],img[src]').forEach(attrs);
       const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
       for (let n; (n = w.nextNode());) text(n);
     }

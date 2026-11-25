@@ -362,3 +362,9 @@ window.I18N_EN = {
  "APIs de IA generativa": "Generative AI APIs",
  ": UTT · Ing. Entornos Virtuales y Negocios Digitales": ": UTT · B.Eng. Virtual Environments and Digital Business"
 };
+
+/* English versions of screenshots: Spanish image path -> English image path.
+   Images without an English version stay the same in both languages. */
+window.I18N_EN_IMG = {
+ "images/dex/agent.jpg": "images/dex/agent-en.jpg"
+};
