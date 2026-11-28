@@ -30,47 +30,61 @@
   li { margin-bottom: 1.2mm; padding-left: 0.6mm; }
   li::marker { font-size: 9pt; }
   h2 { break-after: avoid; }
+  .proj li { margin-bottom: 1.4mm; }
+  .skills p { margin-bottom: 1.2mm; }
 </style>
 </head>
 <body>
   <h1>Jesús Aragón</h1>
-  <p class="role">Software Engineer | Full-Stack SaaS, AI/ML, Swift &amp; Unity</p>
-  <div class="contact">Tijuana, Baja California, México<span class="sep">|</span>+52 663 199 0934<span class="sep">|</span>robiiaragon@gmail.com<span class="sep">|</span>GitHub: <a href="https://github.com/RobiiAragon">github.com/RobiiAragon</a></div>
+  <p class="role">Machine Learning &amp; Software Engineer | AI/ML, LLMs, Full-Stack, Unity</p>
+  <div class="contact">Tijuana, B.C., México<span class="sep">|</span>+52 663 199 0934<span class="sep">|</span>robiiaragon@gmail.com<span class="sep">|</span><a href="https://github.com/RobiiAragon">github.com/RobiiAragon</a><span class="sep">|</span><a href="https://robiiaragon.github.io/portfolio/">robiiaragon.github.io/portfolio</a></div>
 
   <h2>Professional Summary</h2>
-  <p>Software Engineering and Virtual Environments undergraduate (Ingeniería en Entornos Virtuales y Negocios Digitales) experienced in building full-stack SaaS products, Machine Learning and local LLM workflows, native iOS apps in Swift, and real-time Unity experiences. Proficient in TypeScript, React, Python, Swift, C#, .NET, SQL, and Linux environments, focused on shipping practical, production-ready software.</p>
+  <p>Software engineering student (UTT, graduating 2027) who builds machine learning, LLM and RAG applications that run on-device. Fine-tunes models in PyTorch, quantizes them to INT8 and W8A16, and deploys them with ONNX Runtime, Core ML and FastAPI, with measured accuracy and latency. Also ships full-stack SaaS (TypeScript, React, Supabase), native Swift apps and Unity VR experiences.</p>
 
   <h2>Technical Skills</h2>
-  <p><b>Programming Languages:</b> TypeScript, Python, Swift, C#, C++, PHP, JavaScript, Java, SQL, HTML5, CSS3</p>
-  <p><b>Web, Mobile &amp; Game Engines:</b> React, .NET, iOS SDK / Swift, Unity, Laravel, Supabase, REST APIs</p>
-  <p><b>AI, Machine Learning &amp; Compute:</b> Machine Learning, Local LLMs (Ollama, BionicGPT), ComfyUI, Generative AI APIs, NVIDIA CUDA / Tensor</p>
-  <p><b>Systems, DevOps &amp; Networking:</b> Git, GitHub, Linux (Ubuntu, Termux), Windows OS, CMake, Arduino (C++), CCNA Networking</p>
+  <div class="skills">
+  <p><b>Machine Learning &amp; AI:</b> PyTorch, Hugging Face Transformers, scikit-learn, NumPy, ONNX Runtime, Core ML, Qualcomm QNN, quantization (INT8, FP16, W8A16), LLMs, RAG, embeddings, prompt engineering, llama.cpp, Ollama, MLX, computer vision, anomaly detection</p>
+  <p><b>Languages:</b> Python, TypeScript, JavaScript, Swift, C#, C++, Rust, SQL, PHP, Java</p>
+  <p><b>Web &amp; Backend:</b> React, FastAPI, Supabase, REST APIs, Laravel, .NET, SQLite, MySQL, Vercel</p>
+  <p><b>3D, XR &amp; Apple:</b> Unity, OpenXR, Virtual Reality, SwiftUI, ARKit, Metal, RealityKit</p>
+  <p><b>Tools:</b> Git, GitHub Actions (CI), pytest, Jupyter, Linux (Ubuntu, Termux), CMake</p>
+  </div>
 
-  <h2>Software Engineering Experience</h2>
+  <h2>Experience</h2>
   <div class="entry">
-    <div class="head"><b>Lead Programmer — Yoby / BajaPoke (Freelance SaaS Project)</b><span class="date">Jun – Sep 2026</span></div>
-    <div class="stack">Stack: TypeScript, React, Supabase, Generative AI APIs | Tijuana, México</div>
+    <div class="head"><b>Lead Programmer — Yoby / BajaPoke (Freelance SaaS Project)</b><span class="date">Jun 2026 – Sep 2026</span></div>
+    <div class="stack">TypeScript, React, Supabase, Vercel, Generative AI APIs | Tijuana, México</div>
     <ul>
-      <li>Architected and shipped a full-stack SaaS MVP for the BajaPoke restaurant chain to streamline branch job postings and applicant evaluation.</li>
-      <li>Built an AI-assisted resume generator and automated candidate-segmentation pipeline integrating Generative AI APIs with TypeScript, React, and Supabase.</li>
+      <li>Architected and shipped a full-stack SaaS job board for the BajaPoke restaurant chain, connecting job seekers and employers across 4 Baja California cities.</li>
+      <li>Built an AI-assisted resume generator and automated candidate segmentation using generative AI APIs.</li>
+      <li>Designed the full hiring flow (application, chat, interview) with verified employer accounts and multi-branch business profiles.</li>
+      <li>Translated the chain's real hiring process into a product branch managers use without training.</li>
     </ul>
   </div>
   <div class="entry">
-    <div class="head"><b>Game &amp; VR Developer — Universidad Xochicalco (Professional Internship)</b><span class="date">Aug – Dec 2025</span></div>
-    <div class="stack">Stack: Unity, C#, Virtual Reality | Tijuana, México</div>
+    <div class="head"><b>Game &amp; VR Developer — Universidad Xochicalco (Professional Internship)</b><span class="date">Aug 2025 – Dec 2025</span></div>
+    <div class="stack">Unity, C#, OpenXR, Virtual Reality | Tijuana, México</div>
     <ul>
-      <li>Developed an interactive Virtual Reality (VR) application in Unity showcased at Universidad Xochicalco's annual "EXPO PERFILES 2025" event, translating institutional requirements into a real-time 3D experience.</li>
+      <li>Developed a Virtual Reality application in Unity showcased at the university's EXPO PERFILES 2025 to promote its Game Programming &amp; Development degree.</li>
+      <li>Built 2 game modes: a museum tour of game-development fundamentals and a first-person adventure level with portals.</li>
+      <li>Programmed physics-based VR interaction in C# (Hurricane VR, HexaBody VR) and optimized performance for the headset.</li>
+      <li>Set up and ran the experience for the expo audience.</li>
     </ul>
   </div>
 
-  <h2>Selected Engineering Projects</h2>
-  <ul>
-    <li><b>iOS Photogrammetry &amp; Mobile Apps (Swift):</b> Built a native iOS photogrammetry application for 3D capture alongside additional Swift iOS utilities published on GitHub.</li>
-    <li><b>Autonomous Clash Royale Bot (Python, Machine Learning):</b> Engineered a Machine Learning agent capable of playing Clash Royale autonomously through real-time game-state perception and action selection.</li>
-    <li><b>Local AI &amp; Generative Pipelines (Ollama, BionicGPT, ComfyUI, CUDA):</b> Deployed local LLM inference servers and node-based generative workflows on GPU hardware for rapid prototyping and offline AI execution.</li>
+  <h2>Selected Projects</h2>
+  <ul class="proj">
+    <li><b>LogSentinel — Log Anomaly Detection</b> (Python, NumPy, ONNX, scikit-learn, FastAPI): Reached F1 0.976 on 11.2M real HDFS log lines, matching a supervised model without anomaly labels; INT8 model is 10.6 KB and the pipeline processes 150K+ lines/s.</li>
+    <li><b>IT Ticket Triage — Fine-tuned Transformer</b> (PyTorch, Transformers, ONNX Runtime): Fine-tuned a two-head MiniLM that predicts ITIL priority with 79.3% accuracy vs 64.9% for a TF-IDF baseline; INT8 export is 4× smaller and runs in ~4 ms per ticket on CPU.</li>
+    <li><b>Offline IT Helpdesk — Local RAG</b> (MiniLM, BM25, llama.cpp, Qwen2.5, FastAPI): Built hybrid retrieval with cited answers; 96.9% top-1 retrieval, 84.4% fully correct answers and 100% of off-topic questions rejected.</li>
+    <li><b>Quant Lab &amp; Edge AI Bench — Quantization and Benchmarks</b> (ONNX Runtime, Core ML, Qualcomm QNN): Benchmarked 15+ model variants; FP16 on Core ML ran 7.5–12× faster than FP32 on CPU, and W8A16 recovered EfficientNet-B0 from an INT8 collapse to within 0.6 points.</li>
+    <li><b>Dex — Local AI Agent</b> (Rust, Tauri, MLX, llama.cpp, MCP): Desktop AI agent that runs a 35B LLM, image generation, text-to-speech and text-to-3D fully on a Mac, picking models by available RAM.</li>
+    <li><b>Royale Local — Real-time Vision Agent</b> (Swift, ONNX Runtime, Node.js): On-device detection and OCR at 57.6 fps capture with 8.97 ms median state reads; 296 of 296 tests passing.</li>
+    <li><b>Forma — 3D Scanning App</b> (Swift, ARKit, Metal, Core ML): LiDAR, photogrammetry and Gaussian Splatting on iPhone, iPad and Mac, fully on-device.</li>
   </ul>
 
-  <h2 class="edu">Education</h2>
+  <h2>Education</h2>
   <div class="entry">
     <div class="head"><span><b>Universidad Tecnológica de Tijuana (UTT)</b> — Ingeniería &amp; TSU en TI: Entornos Virtuales y Negocios Digitales</span><span class="date light">2023 – Present (Grad. 2027)</span></div>
   </div>
@@ -80,6 +94,6 @@
 
   <h2>Certifications &amp; Languages</h2>
   <p><b>CCNA Essentials</b> (Jan 2024 – Apr 2024) • <b>NDG Linux Essentials</b> (Aug 2022 – Dec 2022) • <b>C++ Essentials</b> (Jan 2021 – Apr 2021)</p>
-  <p><b>Languages:</b> Spanish (Native) • English (B1 Intermediate)&nbsp; | &nbsp;<b>Core Strengths:</b> Technical-to-Business Translation, Adaptability, Crisis Management, Resilience</p>
+  <p><b>Languages:</b> Spanish (Native) • English (B1 Intermediate)</p>
 </body>
 </html>
